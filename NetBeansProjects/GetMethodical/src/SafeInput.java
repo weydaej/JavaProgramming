@@ -29,7 +29,6 @@ public class SafeInput {
         int retInt;
         String trash = "";
         System.out.print("\n" + prompt + ": ");
-
         do {
             if (!pipe.hasNextInt()) {
                 trash = pipe.nextLine();
@@ -40,77 +39,60 @@ public class SafeInput {
         return retInt;
    }
    
-   public static double getDouble(Scanner pipe, String prompt) {
-       int retDouble;
+    public static double getDouble(Scanner pipe, String prompt) {
+        double retDouble;
         String trash = "";
         System.out.print("\n" + prompt + ": ");
-
         do {
             if (!pipe.hasNextDouble()) {
                 trash = pipe.nextLine();
                 System.out.print("\n" + prompt + ": ");
             }
-        } while (!pipe.hasNextInt());
-        retDouble = pipe.nextInt();
-        return retDouble;
-   }
-   public static boolean isInRange(int num, int low, int high) {
-       return (num >= low && num <= high);
-   }
-   
-// System.out.print("\n" + prompt + " [" + low + ", " + high + "]: ");
-    public static int getRangedInt(Scanner pipe, String prompt, int low, int high) {
-        int retInt = 0;
-        String trash = "";
-        System.out.print("\n" + prompt + " [" + low + ", " + high + "]: ");
-        do {
-            if (!pipe.hasNextInt()) { // if input does not have next int
-                trash = pipe.nextLine(); // clear the buffer
-                System.out.print("\n" + prompt + " [" + low + ", " + high + "]: "); // reprompt
-            } else {
-                retInt = pipe.nextInt();
-                if (!isInRange(retInt, low, high)) { // if input is an int but is not in the range
-                    trash = pipe.nextLine(); // clear the buffer
-                    System.out.print("\n" + prompt + " [" + low + ", " + high + "]: "); // reprompt
-                }
-            }
-        } while (!pipe.hasNextInt() && !isInRange(retInt, low, high));
-        System.out.println("retInt = " + retInt);
-        return retInt;
-   }
-
-//    public static int getRangedInt(Scanner pipe, String prompt, int low, int high) {
-//        // check if int
-//        // check if int is in range
-//        int retInt;
-//        String trash = "";
-//        boolean run = true;
-//        
-//        System.out.print("\n" + prompt + " [" + low + ", " + high + "]: ");
-//        do {
-//            if (pipe.hasNextDouble()) {
-//                if (!isInRange(pipe.nextInt(), low, high)) {
-//                    retInt = pipe.nextInt();
-//                }
-//            } else {
-//                trash = pipe.nextLine();
-//                System.out.print("\n" + prompt + " [" + low + ", " + high + "]: ");
-//                
-//            }
-//        } while ();
-//    }
-   
-   public static double getRangedDouble(Scanner pipe, String prompt, double low, double high) {
-        double retDouble;
-        String trash = "";
-        System.out.print("\n" + prompt + " [" + low + ", " + high + "]: ");
-        do {
-            if (!pipe.hasNextDouble()) {
-                trash = pipe.nextLine();
-                System.out.print("\n" + prompt + " [" + low + ", " + high + "]: ");
-            }
         } while (!pipe.hasNextDouble());
         retDouble = pipe.nextDouble();
+        return retDouble;
+   }
+    public static boolean isInRangeInt(int num, int low, int high) {
+        return (num >= low && num <= high);
+    }
+   
+    public static int getRangedInt(Scanner pipe, String prompt, int low, int high) {
+        int retInt = -1;
+        String trash = "";
+        boolean run = true;
+        while (run) {
+            System.out.print("\n" + prompt + " [" + low + ", " + high + "]: ");
+            if (pipe.hasNextInt()) {
+                retInt = pipe.nextInt();
+                if (isInRangeInt(retInt, low, high)) {
+                    run = false;
+                }
+            } else {
+                trash = pipe.nextLine();
+            }
+        }
+        return retInt;
+    }
+    
+    public static boolean isInRangeDouble(double num, double low, double high) {
+       return (num >= low && num <= high);
+    }
+    
+    public static double getRangedDouble(Scanner pipe, String prompt, double low, double high) {
+        double retDouble = -1;
+        String trash = "";
+        boolean run = true;
+        while (run) {
+            System.out.print("\n" + prompt + " [" + low + ", " + high + "]: ");
+            if (pipe.hasNextDouble()) {
+                retDouble = pipe.nextDouble();
+                if (isInRangeDouble(retDouble, low, high)) {
+                    run = false;
+                }
+            } else {
+                trash = pipe.nextLine();
+            }
+        }
         return retDouble;
    }
    
