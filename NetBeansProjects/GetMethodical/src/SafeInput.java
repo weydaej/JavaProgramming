@@ -26,26 +26,112 @@ public class SafeInput {
    }
    
    public static int getInt(Scanner pipe, String prompt) {
-       return 0;
+        int retInt;
+        String trash = "";
+        System.out.print("\n" + prompt + ": ");
+
+        do {
+            if (!pipe.hasNextInt()) {
+                trash = pipe.nextLine();
+                System.out.print("\n" + prompt + ": ");
+            }
+        } while (!pipe.hasNextInt());
+        retInt = pipe.nextInt();
+        return retInt;
    }
    
    public static double getDouble(Scanner pipe, String prompt) {
-       return 0;
+       int retDouble;
+        String trash = "";
+        System.out.print("\n" + prompt + ": ");
+
+        do {
+            if (!pipe.hasNextDouble()) {
+                trash = pipe.nextLine();
+                System.out.print("\n" + prompt + ": ");
+            }
+        } while (!pipe.hasNextInt());
+        retDouble = pipe.nextInt();
+        return retDouble;
+   }
+   public static boolean isInRange(int num, int low, int high) {
+       return (num >= low && num <= high);
    }
    
-   public static int getRangedInt(Scanner pipe, String prompt, int low, int high) {
-       return 0;
+// System.out.print("\n" + prompt + " [" + low + ", " + high + "]: ");
+    public static int getRangedInt(Scanner pipe, String prompt, int low, int high) {
+        int retInt = 0;
+        String trash = "";
+        System.out.print("\n" + prompt + " [" + low + ", " + high + "]: ");
+        do {
+            if (!pipe.hasNextInt()) { // if input does not have next int
+                trash = pipe.nextLine(); // clear the buffer
+                System.out.print("\n" + prompt + " [" + low + ", " + high + "]: "); // reprompt
+            } else {
+                retInt = pipe.nextInt();
+                if (!isInRange(retInt, low, high)) { // if input is an int but is not in the range
+                    trash = pipe.nextLine(); // clear the buffer
+                    System.out.print("\n" + prompt + " [" + low + ", " + high + "]: "); // reprompt
+                }
+            }
+        } while (!pipe.hasNextInt() && !isInRange(retInt, low, high));
+        System.out.println("retInt = " + retInt);
+        return retInt;
    }
+
+//    public static int getRangedInt(Scanner pipe, String prompt, int low, int high) {
+//        // check if int
+//        // check if int is in range
+//        int retInt;
+//        String trash = "";
+//        boolean run = true;
+//        
+//        System.out.print("\n" + prompt + " [" + low + ", " + high + "]: ");
+//        do {
+//            if (pipe.hasNextDouble()) {
+//                if (!isInRange(pipe.nextInt(), low, high)) {
+//                    retInt = pipe.nextInt();
+//                }
+//            } else {
+//                trash = pipe.nextLine();
+//                System.out.print("\n" + prompt + " [" + low + ", " + high + "]: ");
+//                
+//            }
+//        } while ();
+//    }
    
    public static double getRangedDouble(Scanner pipe, String prompt, double low, double high) {
-       return 0;
+        double retDouble;
+        String trash = "";
+        System.out.print("\n" + prompt + " [" + low + ", " + high + "]: ");
+        do {
+            if (!pipe.hasNextDouble()) {
+                trash = pipe.nextLine();
+                System.out.print("\n" + prompt + " [" + low + ", " + high + "]: ");
+            }
+        } while (!pipe.hasNextDouble());
+        retDouble = pipe.nextDouble();
+        return retDouble;
    }
    
    public static boolean getYNConfirm(Scanner pipe, String prompt) {
-       return false;
+        boolean retBool = false;
+        String ans;
+        System.out.print("\n" + prompt + " [Y/N]: ");
+        do {
+            ans = pipe.nextLine().toUpperCase();
+            if (ans.equals("Y")) {
+                retBool = true;
+            } else if (ans.equals("N")) {
+                retBool = true;
+            } else {
+                System.out.print("\n" + prompt + " [Y/N]: ");
+            }
+        } while (!ans.equals("Y") && !ans.equals("N"));
+        return retBool;
    }
    
    public static String getRegExString(Scanner pipe, String prompt, String RegEx) {
-       return "";
+        return "";
    }
 }
