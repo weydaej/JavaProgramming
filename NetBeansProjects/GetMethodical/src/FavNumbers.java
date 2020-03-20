@@ -9,15 +9,16 @@
  * @author weydaej
  */
 import java.util.Scanner;
-public class BirthDateTime {
+public class FavNumbers {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        String mNumber = SafeInput.getRegExString(in, "Enter regex string", "(M|m)\\d{8}");
-        System.out.println(mNumber);
+        int favInt = SafeInput.getInt(in, "Enter your favorite integer");
+        double favDouble = SafeInput.getDouble(in, "Enter your favorite double");
+        System.out.printf("Your favorite integer is %d and your favorite double is %f.", favInt, favDouble);
     }
     
 }

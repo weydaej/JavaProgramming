@@ -86,7 +86,7 @@ public class SafeInput {
     * @param high an int representing the upper bound
     * @return true if number is between low and high
     */ 
-    public static boolean isInRangeInt(int num, int low, int high) {
+    private static boolean isInRangeInt(int num, int low, int high) {
         return (num >= low && num <= high);
     }
     
@@ -123,7 +123,7 @@ public class SafeInput {
     * @param high a double representing the upper bound
     * @return true if number is between low and high
     */ 
-    public static boolean isInRangeDouble(double num, double low, double high) {
+    private static boolean isInRangeDouble(double num, double low, double high) {
        return (num >= low && num <= high);
     }
     
