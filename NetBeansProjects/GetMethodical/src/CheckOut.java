@@ -8,13 +8,28 @@
  *
  * @author weydaej
  */
+import java.util.Scanner;
 public class CheckOut {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        /*
+        At the 10$ store nothing is more than $10.00.  
+        Prompt the user for the price of their item (.50 cents to $9.99 dollars) 
+        using the getRangedDouble method and continue to input items as long as 
+        they indicate that they have more using your getYNConfirm method.  
+        Display the total cost of the item(s) to 2 decimal places with printf.  
+        */
+        Scanner in = new Scanner(System.in);
+        double itemPrice;
+        boolean ans;
+        do {
+            itemPrice = SafeInput.getRangedDouble(in, "Enter the price of your item", 0.50, 9.99);
+            ans = SafeInput.getYNConfirm(in, "Do you have more items");
+            System.out.println(ans);
+        } while (ans);
     }
     
 }

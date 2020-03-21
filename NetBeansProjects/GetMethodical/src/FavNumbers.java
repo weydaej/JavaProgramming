@@ -20,5 +20,4 @@ public class FavNumbers {
         double favDouble = SafeInput.getDouble(in, "Enter your favorite double");
         System.out.printf("Your favorite integer is %d and your favorite double is %f.", favInt, favDouble);
     }
-    
 }

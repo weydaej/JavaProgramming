@@ -8,13 +8,18 @@
  *
  * @author weydaej
  */
+import java.util.Scanner;
 public class CtoFTableDisplay {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Scanner in = new Scanner(System.in);
+        SafeInput.getInt(in, "Enter int");
+        SafeInput.getDouble(in, "Enter double");
+        SafeInput.getRangedInt(in, "Enter double", 2, 7);
+        SafeInput.getRangedDouble(in, "Enter int", 2.3, 4.9);
     }
     
 }

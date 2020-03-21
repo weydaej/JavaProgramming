@@ -46,16 +46,18 @@ public class SafeInput {
     * @return an int
     */ 
     public static int getInt(Scanner pipe, String prompt) {
-        int retInt;
-        boolean hasInt = false;
+        int retInt = -1;
+        boolean run = true;
         do {
             System.out.print("\n" + prompt + ": ");
-            hasInt = pipe.hasNextInt();
-            if (!hasInt) {
+            if (pipe.hasNextInt()) {
+                retInt = pipe.nextInt();
+                pipe.nextLine();
+                run = false;
+            } else {
                 pipe.nextLine();
             }
-        } while (!hasInt);
-        retInt = pipe.nextInt();
+        } while (run);
         return retInt;
     }
     
@@ -66,17 +68,30 @@ public class SafeInput {
     * @return a double
     */ 
     public static double getDouble(Scanner pipe, String prompt) {
-        double retDouble;
-        boolean hasDouble = false;
+        double retDouble = -1;
+        boolean run = true;
         do {
             System.out.print("\n" + prompt + ": ");
-            hasDouble = pipe.hasNextDouble();
-            if (!hasDouble) {
+            if (pipe.hasNextDouble()) {
+                retDouble = pipe.nextDouble();
+                pipe.nextLine();
+                run = false;
+            } else {
                 pipe.nextLine();
             }
-        } while (!hasDouble);
-        retDouble = pipe.nextDouble();
+        } while (run);
         return retDouble;
+//        double retDouble = -1;
+//        boolean hasDouble = false;
+//        do {
+//            System.out.print("\n" + prompt + ": ");
+//            hasDouble = pipe.hasNextDouble();
+//            if (!hasDouble) {
+//                pipe.nextLine();
+//            }
+//        } while (!hasDouble);
+//        retDouble = pipe.nextDouble();
+//        return retDouble;
     }
     
     /**
@@ -100,19 +115,20 @@ public class SafeInput {
     */ 
     public static int getRangedInt(Scanner pipe, String prompt, int low, int high) {
         int retInt = -1;
-        String trash = "";
         boolean run = true;
-        while (run) {
+        String trash = "";
+        do {
             System.out.print("\n" + prompt + " [" + low + ", " + high + "]: ");
             if (pipe.hasNextInt()) {
                 retInt = pipe.nextInt();
+                pipe.nextLine();
                 if (isInRangeInt(retInt, low, high)) {
                     run = false;
                 }
             } else {
-                trash = pipe.nextLine();
+                pipe.nextLine();
             }
-        }
+        } while (run);
         return retInt;
     }
     
@@ -137,19 +153,20 @@ public class SafeInput {
     */ 
     public static double getRangedDouble(Scanner pipe, String prompt, double low, double high) {
         double retDouble = -1;
-        String trash = "";
         boolean run = true;
-        while (run) {
+        
+        do {
             System.out.print("\n" + prompt + " [" + low + ", " + high + "]: ");
             if (pipe.hasNextDouble()) {
                 retDouble = pipe.nextDouble();
+                pipe.nextLine();
                 if (isInRangeDouble(retDouble, low, high)) {
                     run = false;
                 }
             } else {
-                trash = pipe.nextLine();
+                pipe.nextLine();
             }
-        }
+        } while (run);
         return retDouble;
     }
     
@@ -162,17 +179,15 @@ public class SafeInput {
     public static boolean getYNConfirm(Scanner pipe, String prompt) {
         boolean retBool = false;
         String ans;
-        System.out.print("\n" + prompt + " [Y/N]: ");
         do {
+            System.out.print("\n" + prompt + "? [Y/N] ");
             ans = pipe.nextLine().toUpperCase();
-            if (ans.equals("Y")) {
-                retBool = true;
-            } else if (ans.equals("N")) {
-                retBool = true;
-            } else {
-                System.out.print("\n" + prompt + " [Y/N]: ");
-            }
+            pipe.nextLine();
         } while (!ans.equals("Y") && !ans.equals("N"));
+        if (ans.equals("Y")) {
+            retBool = true;
+        }
+        
         return retBool;
     }
     
