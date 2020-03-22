@@ -23,13 +23,13 @@ public class CheckOut {
         Display the total cost of the item(s) to 2 decimal places with printf.  
         */
         Scanner in = new Scanner(System.in);
-        double itemPrice;
+        double totalPrice = 0;
         boolean ans;
         do {
-            itemPrice = SafeInput.getRangedDouble(in, "Enter the price of your item", 0.50, 9.99);
+            totalPrice += SafeInput.getRangedDouble(in, "Enter the price of your item", 0.50, 9.99);
             ans = SafeInput.getYNConfirm(in, "Do you have more items");
-            System.out.println(ans);
         } while (ans);
+        System.out.printf("The total cost: %f", totalPrice);
     }
     
 }

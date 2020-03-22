@@ -16,10 +16,7 @@ public class CtoFTableDisplay {
      */
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        SafeInput.getInt(in, "Enter int");
-        SafeInput.getDouble(in, "Enter double");
-        SafeInput.getRangedInt(in, "Enter double", 2, 7);
-        SafeInput.getRangedDouble(in, "Enter int", 2.3, 4.9);
+        SafeInput.getRegExString(in, "Enter social security num", "\\d{3}-\\d{2}-\\d{4}");
     }
     
 }

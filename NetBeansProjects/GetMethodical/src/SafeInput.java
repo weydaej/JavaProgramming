@@ -81,17 +81,6 @@ public class SafeInput {
             }
         } while (run);
         return retDouble;
-//        double retDouble = -1;
-//        boolean hasDouble = false;
-//        do {
-//            System.out.print("\n" + prompt + ": ");
-//            hasDouble = pipe.hasNextDouble();
-//            if (!hasDouble) {
-//                pipe.nextLine();
-//            }
-//        } while (!hasDouble);
-//        retDouble = pipe.nextDouble();
-//        return retDouble;
     }
     
     /**
@@ -178,16 +167,20 @@ public class SafeInput {
     */ 
     public static boolean getYNConfirm(Scanner pipe, String prompt) {
         boolean retBool = false;
-        String ans;
+        String ans = "";
+        boolean run = true;
         do {
             System.out.print("\n" + prompt + "? [Y/N] ");
-            ans = pipe.nextLine().toUpperCase();
-            pipe.nextLine();
-        } while (!ans.equals("Y") && !ans.equals("N"));
+            if (pipe.hasNext()) {
+                ans = pipe.nextLine().toUpperCase();
+                if (ans.equals("Y") || ans.equals("N")) {
+                    run = false;
+                }
+            }
+        } while (run);
         if (ans.equals("Y")) {
             retBool = true;
         }
-        
         return retBool;
     }
     
