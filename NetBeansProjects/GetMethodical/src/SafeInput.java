@@ -200,8 +200,42 @@ public class SafeInput {
             Pattern regexPattern = Pattern.compile(RegEx);
             Matcher regexMatcher = regexPattern.matcher(stringToSearch);
             if (regexMatcher.find()) {
-                return regexMatcher.group();
+                return regexMatcher.group(0);
             } 
         } while(true);
+    }
+    
+    public static void prettyHeader(String msg) {
+        if (msg.length() < 52) {
+            int position = 0;
+            int valSpacesAfter = 0;
+            boolean isEvenLength = (msg.length() % 2 == 0);
+            for (int i = 0; i < 3; i++) {
+                if (i % 2 == 0) {
+                    for(int j = 0; j < 60; j++) {
+                        System.out.print("*");
+                    }
+                    System.out.println();
+                } else {
+                    position = (54 - msg.length());
+                    System.out.print("***");
+                    for (int k = 0; k < position / 2; k++) {
+                        System.out.print(" ");
+                    }
+                    System.out.print(msg);
+                    if (isEvenLength) {
+                        valSpacesAfter = position / 2;
+                    } else {
+                        valSpacesAfter = position / 2 + 1;
+                    }
+                    for (int l = 0; l < valSpacesAfter; l++) {
+                        System.out.print(" ");
+                    }
+                    System.out.println("***");
+                }
+            }
+        } else {
+            System.out.println("Your message is too long, please try again with a shorter message.");
+        }
     }
 }

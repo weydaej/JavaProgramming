@@ -29,7 +29,6 @@ public class CheckOut {
             totalPrice += SafeInput.getRangedDouble(in, "Enter the price of your item", 0.50, 9.99);
             ans = SafeInput.getYNConfirm(in, "Do you have more items");
         } while (ans);
-        System.out.printf("The total cost: %f", totalPrice);
+        System.out.printf("The total cost: %.02f\n", totalPrice);
     }
-    
 }
