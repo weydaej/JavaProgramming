@@ -21,9 +21,13 @@ public class ArrayStuff {
         int[] dataPoints = new int[100];
         int sum = 0;
         double mean = 0;
+        
+        /* (b) */
         for (int i = 0; i < dataPoints.length; i++) {
             dataPoints[i] = rnd.nextInt(100) + 1;
         }
+        
+        /* (c) */
         for (int j = 0; j < dataPoints.length; j++) {
             if (j < dataPoints.length - 1) {
                 System.out.print(dataPoints[j] + " | ");
@@ -31,6 +35,8 @@ public class ArrayStuff {
                 System.out.print(dataPoints[j]);
             }
         }
+        
+        /* (d) */
         for (int k = 0; k < dataPoints.length; k++) {
             sum += dataPoints[k];
         }
@@ -40,8 +46,10 @@ public class ArrayStuff {
         /* Part 2: Linear Search */
         Scanner in = new Scanner(System.in);
         int count = 0;
+        
         /* (a) */
         int ans = SafeInput.getRangedInt(in, "Enter an integer value between 1 and 100", 1, 100);
+        
         /* (b) */
         for (int l = 0; l < dataPoints.length; l++) {
             if (ans == dataPoints[l]) {
@@ -64,5 +72,20 @@ public class ArrayStuff {
         } else {
             System.out.printf("\nThe value %d was not found.\n", val);
         }
+        
+        /* (d) */
+        int min = dataPoints[0];
+        int max = dataPoints[0];
+        for (int n = 0; n < dataPoints.length; n++) {
+            if (dataPoints[n] > max) {
+                max = dataPoints[n];
+            } else if (dataPoints[n] < min) {
+                min = dataPoints[n];
+            }
+        }
+        System.out.printf("\nThe max value in DatPoints is %d, and the min value is %d.\n", max, min);
+        
+        /* (e) */
+        
     }
 }
