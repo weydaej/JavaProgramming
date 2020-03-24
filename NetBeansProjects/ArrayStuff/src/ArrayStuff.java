@@ -16,13 +16,12 @@ public class ArrayStuff {
      * @param args the command line arguments
      */
     
-    
     public static void main(String[] args) {
         Random rnd = new Random();
         /* Part 1: DataPoints Array */
+        
+        /* (a) */
         int[] dataPoints = new int[100];
-        double sum = 0;
-        double mean = 0;
         
         /* (b) */
         for (int i = 0; i < dataPoints.length; i++) {
@@ -39,12 +38,10 @@ public class ArrayStuff {
         }
         
         /* (d) */
-        for (int k = 0; k < dataPoints.length; k++) {
-            sum += dataPoints[k];
-        }
-        mean = sum/dataPoints.length;
-        System.out.printf("\nThe sum of the datapoints is %.2f and the average is %.2f.\n", sum, mean);
-    
+        getAverage(dataPoints);
+        
+    /* -------------------------------------------------------------------------------------------------- */
+        
         /* Part 2: Linear Search */
         Scanner in = new Scanner(System.in);
         int count = 0;
@@ -53,39 +50,15 @@ public class ArrayStuff {
         int ans = SafeInput.getRangedInt(in, "Enter an integer value between 1 and 100", 1, 100);
         
         /* (b) */
-        for (int l = 0; l < dataPoints.length; l++) {
-            if (ans == dataPoints[l]) {
-                count++;
-            }
-        }
-        System.out.printf("\n%d appeared in the DataPoints array %d times.\n", ans, count);
+        occurenceScan(dataPoints, ans);
         
         /* (c) */
-        int matches = -1;
         int val = SafeInput.getRangedInt(in, "Enter an integer value between 1 and 100", 1, 100);
-        for (int m = 0; m < dataPoints.length; m++) {
-            if (val == dataPoints[m]) {
-                matches = m;
-                break;
-            }
-        }
-        if (matches != -1) {
-            System.out.printf("\nThe value %d was found at array index %d.\n", val, matches);
-        } else {
-            System.out.printf("\nThe value %d was not found.\n", val);
-        }
+        contains(dataPoints, val);
         
         /* (d) */
-        int min = dataPoints[0];
-        int max = dataPoints[0];
-        for (int n = 0; n < dataPoints.length; n++) {
-            if (dataPoints[n] > max) {
-                max = dataPoints[n];
-            } else if (dataPoints[n] < min) {
-                min = dataPoints[n];
-            }
-        }
-        System.out.printf("\nThe max value in DatPoints is %d, and the min value is %d.\n", max, min);
+        min(dataPoints);
+        max(dataPoints);
         
         /* (e) */
         System.out.println("Average of dataPoints is: " + getAverage(dataPoints));
@@ -98,6 +71,7 @@ public class ArrayStuff {
             sum += values[i];
         }
         average = sum/values.length;
+        System.out.printf("\nThe sum of the datapoints is %.2f and the average is %.2f.\n", sum, average);
         return average;
     }
     
@@ -158,5 +132,4 @@ public class ArrayStuff {
             return false;
         }
     }
-    
 }
