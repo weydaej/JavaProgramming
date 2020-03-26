@@ -8,13 +8,14 @@
  *
  * @author weydaej
  */
+import java.util.Scanner;
 public class TicTacToe {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Scanner in = new Scanner(System.in);
+        SafeInput.getRangedInt(in, "", 0, 0);
     }
-    
 }
