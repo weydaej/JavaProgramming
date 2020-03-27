@@ -8,6 +8,15 @@
  *
  * @author weydaej
  */
+
+/**
+ * TODO
+ * ---------------------------------------------------------------------------------------
+ * Fix isTie()
+ * Implement twoInARow() code to help decipher when the game is "over"
+ * Play through several games with different win conditions to make sure no bugs
+ * Maybe add some stats (player 1 won X # of games, player 2 won X # of games, X # of ties)
+ */
 import java.util.Scanner;
 public class TicTacToe {
 
