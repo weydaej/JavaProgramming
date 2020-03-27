@@ -21,19 +21,39 @@ public class TicTacToe {
     
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        
+        int row;
+        int col;
+        String P1 = "Player 1";
+        String P2 = "Player 2";
         String player1 = " X ";
         String player2 = " O ";
-        clearBoard();
-        display();
-        board[0][0] = " X ";
-        board[1][1] = " X ";
-        board[2][2] = " X ";
-        display();
-        System.out.println("DIAG WIN " + isDiagonalWin(player1));
-        
-        System.out.println("ROW WIN " + isRowWin(player1));
-        System.out.println("COL WIN " + isColWin(player1));
+        String currentPlayer = player1;
+        do {
+            int moves = 0;
+            
+            clearBoard();
+            display();
+            for (int i = 0; i < 9; i++) {
+                if (i % 2 == 0) {
+                    currentPlayer = P1;
+                } else {
+                    currentPlayer = P2;
+                }
+                System.out.printf("%s, it's your turn!\n", currentPlayer);
+                    do {
+                        row = SafeInput.getRangedInt(in, "Enter your row coordinate", 1, 3) - 1;
+                        col = SafeInput.getRangedInt(in, "Enter your column coordinate", 1, 3) - 1;
+                    } while (!isValidMove(row, col));
+                moves += 1;
+                if (moves >= 3) {
+                    // check for win
+                    // check for tie 
+                }
+                if (isColWin(currentPlayer) || isRowWin(currentPlayer) || isDiagonalWin(currentPlayer) || isTie()) {
+                    // announce the win or tie
+                }
+            }
+        } while (SafeInput.getYNConfirm(in, "Would you like to play again"));
     }
     
     /* clears board */
@@ -127,6 +147,24 @@ public class TicTacToe {
      * @return true if players tie
      */
     private static boolean isTie() {
-        return true;
+        int count = 0;
+        for (int i = 0; i < ROW; i++) {
+            for (int j = 0; j < COL; j++) {
+                if (!board[i][j].equals("   ")) {
+                    count++;
+                }
+            }
+        }
+        if (count == 9) {
+            System.out.println("All spaces are filled");
+            return true;
+        } else {
+            return false;
+        }
     }
+    
+    private static boolean twoInARow() {
+        // returns true if win is still possible
+        return false;
+    } 
 }
