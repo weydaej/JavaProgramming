@@ -27,8 +27,8 @@ public class TicTacToe {
         clearBoard();
         display();
         board[0][0] = " X ";
-        board[1][0] = " X ";
-        board[2][0] = " X ";
+        board[1][1] = " X ";
+        board[2][2] = " X ";
         display();
         System.out.println("DIAG WIN " + isDiagonalWin(player1));
         
@@ -115,9 +115,8 @@ public class TicTacToe {
      * @return true diagonal win condition
      */
     private static boolean isDiagonalWin(String player) {
-        if (board[0][0].equals(player) && board[1][1].equals(player) && board[2][2].equals(player)){
-            return true;
-        } else if (board[0][2].equals(player) && board[1][1].equals(player) && board[2][0].equals(player)){
+        if ((board[0][0].equals(player) && board[1][1].equals(player) && board[2][2].equals(player)) || 
+            (board[0][2].equals(player) && board[1][1].equals(player) && board[2][0].equals(player))){
             return true;
         } else {
             return false;
