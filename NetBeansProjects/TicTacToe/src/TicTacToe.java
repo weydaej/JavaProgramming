@@ -21,6 +21,7 @@ public class TicTacToe {
     
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
+        int games = 0;
         int row;
         int col;
         String P1 = "Player 1";
@@ -28,29 +29,43 @@ public class TicTacToe {
         String player1 = " X ";
         String player2 = " O ";
         String currentPlayer = player1;
+        String currentPlayerString;
         do {
+            if (games % 2 == 0) { // toggles player every other game
+                currentPlayer = player1;
+            } else {
+                currentPlayer = player2;
+            }
+            games++;
             int moves = 0;
             
             clearBoard();
             display();
             for (int i = 0; i < 9; i++) {
                 if (i % 2 == 0) {
-                    currentPlayer = P1;
+                    currentPlayer = player1;
+                    currentPlayerString = P1;
                 } else {
-                    currentPlayer = P2;
+                    currentPlayer = player2;
+                    currentPlayerString = P2;
                 }
-                System.out.printf("%s, it's your turn!\n", currentPlayer);
+                System.out.printf("%s, it's your turn!\n", currentPlayerString);
                     do {
                         row = SafeInput.getRangedInt(in, "Enter your row coordinate", 1, 3) - 1;
                         col = SafeInput.getRangedInt(in, "Enter your column coordinate", 1, 3) - 1;
                     } while (!isValidMove(row, col));
                 moves += 1;
+                board[row][col] = currentPlayer;
+                display();
+                
                 if (moves >= 3) {
                     // check for win
                     // check for tie 
                 }
                 if (isColWin(currentPlayer) || isRowWin(currentPlayer) || isDiagonalWin(currentPlayer) || isTie()) {
                     // announce the win or tie
+                    System.out.printf("WINNER WINNER CHICKEN DINNER, %s wins!", currentPlayerString);
+                    break;
                 }
             }
         } while (SafeInput.getYNConfirm(in, "Would you like to play again"));
