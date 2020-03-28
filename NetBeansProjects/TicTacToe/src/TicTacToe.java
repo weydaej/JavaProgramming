@@ -50,7 +50,7 @@ public class TicTacToe {
             
             clearBoard();
             display();
-            for (int i = 0; i < 9; i++) {
+            for (int i = 0; i < 9; i++) { // maximum 9 turns for 9 spaces on the board
                 if (i % 2 == 0) {
                     currentPlayer = player1;
                     currentPlayerString = P1;
@@ -67,14 +67,13 @@ public class TicTacToe {
                 board[row][col] = currentPlayer;
                 display();
                 
-                if (moves >= 3) {
-                    // check for win
-                    // check for tie 
-                }
-                if (isColWin(currentPlayer) || isRowWin(currentPlayer) || isDiagonalWin(currentPlayer) || isTie()) {
-                    // announce the win or tie
-                    System.out.printf("WINNER WINNER CHICKEN DINNER, %s wins!", currentPlayerString);
-                    break;
+                if (moves >= 5) { // checks win/tie conditions after the 5th turn
+                    if (isColWin(currentPlayer) || isRowWin(currentPlayer) || isDiagonalWin(currentPlayer)) { 
+                        System.out.printf("WINNER WINNER CHICKEN DINNER, %s wins!", currentPlayerString);
+                        break;
+                    } else if (isTie()) {
+                        System.out.println("TIE GAME");
+                    }
                 }
             }
         } while (SafeInput.getYNConfirm(in, "Would you like to play again"));
@@ -84,27 +83,27 @@ public class TicTacToe {
     private static void clearBoard() {
         for (int i = 0; i < ROW; i++) {
             for (int j = 0; j < COL; j++) {
-                board[i][j] = "   ";
+                board[i][j] = "   "; // reset every slot
             }
         }
     }
     
     /* displays tic tac toe board */
     private static void display() {
-        String brd = "";
+        String displayBoard = "";
         for (int i = 0; i < ROW; i++) {
             for (int j = 0; j < COL; j++) {
-                if (j == COL - 1) {
-                    brd += board[i][j];
+                if (j == COL - 1) { // draw rows
+                    displayBoard += board[i][j]; // don't append a pipe for col 3
                 } else {
-                    brd += board[i][j] + "|";
+                    displayBoard += board[i][j] + "|"; // append pipe after cols
                 }
             }
-            if (i != ROW - 1) {
-                brd += "\n---+---+---\n";
+            if (i != ROW - 1) { // append dividers between rows
+                displayBoard += "\n---+---+---\n";
             }
         }
-        System.out.println(brd);
+        System.out.println(displayBoard);
     }
     
     /**
