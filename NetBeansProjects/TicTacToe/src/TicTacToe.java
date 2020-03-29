@@ -38,12 +38,23 @@ public class TicTacToe {
         String player1 = " X ";
         String player2 = " O ";
         String currentPlayer = player1;
+        String notCurrentPlayer = player2;
         String currentPlayerString;
+        
+        /* testing sandbox */
+//        clearBoard();
+//        board[0][0] = "   ";    board[0][1] = "   ";    board[0][2] = "   ";
+//        board[1][0] = "   ";    board[1][1] = "   ";    board[1][2] = "   ";
+//        board[2][0] = "   ";    board[2][1] = "   ";    board[2][2] = "   ";
+//        display();
+        
         do {
             if (games % 2 == 0) { // toggles player every other game
                 currentPlayer = player1;
+                notCurrentPlayer = player2;
             } else {
                 currentPlayer = player2;
+                notCurrentPlayer = player1;
             }
             games++;
             int moves = 0;
@@ -53,9 +64,11 @@ public class TicTacToe {
             for (int i = 0; i < 9; i++) { // maximum 9 turns for 9 spaces on the board
                 if (i % 2 == 0) {
                     currentPlayer = player1;
+                    notCurrentPlayer = player2;
                     currentPlayerString = P1;
                 } else {
                     currentPlayer = player2;
+                    notCurrentPlayer = player1;
                     currentPlayerString = P2;
                 }
                 System.out.printf("%s, it's your turn!\n", currentPlayerString);
@@ -74,7 +87,7 @@ public class TicTacToe {
                     } else if (isTie()) {
                         System.out.println("TIE GAME");
                     }
-                }
+                } 
             }
         } while (SafeInput.getYNConfirm(in, "Would you like to play again"));
     }
@@ -82,7 +95,8 @@ public class TicTacToe {
     /* clears board */
     private static void clearBoard() {
         for (int i = 0; i < ROW; i++) {
-            for (int j = 0; j < COL; j++) {
+            f
+                    or (int j = 0; j < COL; j++) {
                 board[i][j] = "   "; // reset every slot
             }
         }
@@ -170,24 +184,85 @@ public class TicTacToe {
      * @return true if players tie
      */
     private static boolean isTie() {
-        int count = 0;
+        // all spaces are filled is taken care of with main game flow
+        // no win possible 
+        return false;
+        
+    }
+    
+    private static boolean isWinPossibleCol(String player) {
+        // returns true if win is still possible
         for (int i = 0; i < ROW; i++) {
+            int count = 0;
+            int blank = 0;
             for (int j = 0; j < COL; j++) {
-                if (!board[i][j].equals("   ")) {
+                if (board[j][i].equals(player)) {
                     count++;
+                } else if (board[i][j].equals("   ")) {
+                    blank++;
+                }
+                if (count + blank == 3) {
+                    return true;
                 }
             }
         }
-        if (count == 9) {
-            System.out.println("All spaces are filled");
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
     
-    private static boolean twoInARow() {
+    private static boolean isWinPossibleRow(String player) {
         // returns true if win is still possible
+        for (int i = 0; i < ROW; i++) {
+            int count = 0;
+            int blank = 0;
+            for (int j = 0; j < COL; j++) {
+                if (board[i][j].equals(player)) {
+                    count++;
+                } else if (board[i][j].equals("   ")) {
+                    blank++;
+                }
+                if (count + blank == 3) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    } 
+    
+    private static boolean isWinPossibleDiagonalDown(String player) {
+        // returns true if win is still possible
+        int count = 0;
+        int blank = 0;
+        for (int i = 0; i < ROW; i++) {
+            for (int j = 0; j < COL; j++) {
+                if (board[i][j].equals(player)) {
+                    count++;
+                } else if (board[i][j].equals("   ")) {
+                    blank++;
+                }
+                if (count + blank == 3) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    } 
+    
+    private static boolean isWinPossibleDiagonalUp(String player) {
+        // returns true if win is still possible
+        int count = 0;
+        int blank = 0;
+        for (int i = 0; i < ROW; i++) {
+            for (int j = 2; j > COL; j--) {
+                if (board[i][j].equals(player)) {
+                    count++;
+                } else if (board[i][j].equals("   ")) {
+                    blank++;
+                }
+                if (count + blank == 3) {
+                    return true;
+                }
+            }
+        }
         return false;
     } 
 }
