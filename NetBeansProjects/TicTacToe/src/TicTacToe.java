@@ -95,8 +95,7 @@ public class TicTacToe {
     /* clears board */
     private static void clearBoard() {
         for (int i = 0; i < ROW; i++) {
-            f
-                    or (int j = 0; j < COL; j++) {
+            for (int j = 0; j < COL; j++) {
                 board[i][j] = "   "; // reset every slot
             }
         }
