@@ -47,7 +47,8 @@ public class TicTacToe {
 //        board[1][0] = "   ";    board[1][1] = "   ";    board[1][2] = "   ";
 //        board[2][0] = "   ";    board[2][1] = "   ";    board[2][2] = "   ";
 //        display();
-        
+//        System.out.println(isWinPossibleRow(currentPlayer));
+            
         do {
             if (games % 2 == 0) { // toggles player every other game
                 currentPlayer = player1;
@@ -185,7 +186,20 @@ public class TicTacToe {
     private static boolean isTie() {
         // all spaces are filled is taken care of with main game flow
         // no win possible 
-        return false;
+        int count = 0;
+        for (int i = 0; i < ROW; i++) {
+            for (int j = 0; j < COL; j++) {
+                if (!board[i][j].equals("   ")) {
+                    count++;
+                }
+            }
+        }
+        if (count == 9) {
+            System.out.println("All spaces are filled");
+            return true;
+        } else {
+            return false;
+        }
         
     }
     
