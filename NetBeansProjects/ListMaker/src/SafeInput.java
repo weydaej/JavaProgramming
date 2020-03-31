@@ -238,4 +238,24 @@ public class SafeInput {
             System.out.println("Your message is too long, please try again with a shorter message.");
         }
     }
+    
+    public static String menu(Scanner pipe, String option1, String option2, String option3, String option4) {
+        String opt1 = option1.substring(0, 1);
+        String opt2 = option2.substring(0, 1);
+        String opt3 = option3.substring(0, 1);
+        String opt4 = option4.substring(0, 1);
+        System.out.printf("Select a menu option:\n    %s: %s\n    %s: %s\n    %s: %s\n    %s: %s", opt1, option1, opt2, option2, opt3, option3, opt4, option4);
+        String ans = "";
+        boolean run = true;
+        do {
+            if (pipe.hasNext()) {
+                ans = pipe.nextLine().toUpperCase();
+                if (ans.equals(opt1) || ans.equals(opt2) || ans.equals(opt3) || ans.equals(opt4)) {
+                    run = false;
+                }
+            }
+        } while (run);
+        return ans;
+    }
+    
 }

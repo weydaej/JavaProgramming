@@ -8,13 +8,26 @@
  *
  * @author weydaej
  */
+import java.util.Scanner;
 public class ListMaker {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Scanner in = new Scanner(System.in);
+        boolean run = true;
+        String ans = "";
+        String opt1 = "Open".substring(0, 1);
+        System.out.println(opt1);
+//        do {
+//            System.out.println("Select a menu option:\n    O: Open\n    S: Save\n    V: View\n    Q: Quit");
+//            if (in.hasNext()) {
+//                ans = in.nextLine().toUpperCase();
+//                if (ans.equals("A") || ans.equals("D") || ans.equals("P") || ans.equals("Q")) {
+//                    run = false;
+//                }
+//            }
+//        } while (run);
     }
-    
 }
