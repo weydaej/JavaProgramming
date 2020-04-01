@@ -32,13 +32,13 @@ public class ListMaker {
         do {
             if (in.hasNext()) {
                 ans = in.nextLine().toUpperCase();
-                if (ans.equals(opt1) || ans.equals(opt2) || ans.equals(opt3) || ans.equals(opt4)) {
+                if (ans.equals(opt1) || ans.equals(opt2) || ans.equals(opt3)) {
                     run = false;
-                    if (ans.equals(opt4)) {
-                        if (!SafeInput.getYNConfirm(in, "Are you sure")) {
-                            run = true;
-                        } 
-                    }
+                    
+                } else if (ans.equals(opt4)) {
+                    if (!SafeInput.getYNConfirm(in, "Are you sure")) {
+                        run = true;
+                    } 
                 }
             }
         } while (run);
