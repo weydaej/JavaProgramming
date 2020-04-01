@@ -9,6 +9,8 @@
  * @author weydaej
  */
 import java.util.Scanner;
+import java.util.ArrayList;
+
 public class ListMaker {
 
     /**
@@ -16,52 +18,46 @@ public class ListMaker {
      */
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        
-        String option1 = "Add";
-        String option2 = "Delete";
-        String option3 = "Print";
-        String option4 = "Quit";
-
-        String opt1 = option1.substring(0, 1);
-        String opt2 = option2.substring(0, 1);
-        String opt3 = option3.substring(0, 1);
-        String opt4 = option4.substring(0, 1);
-        System.out.printf("Select a menu option:\n    %s: %s\n    %s: %s\n    %s: %s\n    %s: %s\n", opt1, option1, opt2, option2, opt3, option3, opt4, option4);
+        ArrayList<String> arrList = new ArrayList<>();
         String ans = "";
         boolean run = true;
+
         do {
-            if (in.hasNext()) {
-                ans = in.nextLine().toUpperCase();
-                if (ans.equals(opt1) || ans.equals(opt2) || ans.equals(opt3)) {
-                    run = false;
-                    
-                } else if (ans.equals(opt4)) {
-                    if (!SafeInput.getYNConfirm(in, "Are you sure")) {
-                        run = true;
-                    } 
-                }
+            ans = SafeInput.getRegExString(in, "Select a menu option:\n    A: Add\n    D: Delete\n    P: Print\n    Q: Quit\n", "[AaDdPpQq]").toUpperCase();
+            switch (ans) {
+                case "A":
+                    addToArrList(in, arrList);
+                    break;
+                case "D":
+                    deleteFromArrList(in, arrList);
+                    break;
+                case "P":
+                    displayArrList(arrList);
+                    break;
+                case "Q":
+                    if (SafeInput.getYNConfirm(in, "Are you sure")) {
+                        run = false;
+                    } else {
+                        System.out.println("Returning to menu...");
+                    }
+                    break;
             }
         } while (run);
-        
-        
     }
     
-//    public static String menu(Scanner pipe, String option1, String option2, String option3, String option4) {
-//        String opt1 = option1.substring(0, 1);
-//        String opt2 = option2.substring(0, 1);
-//        String opt3 = option3.substring(0, 1);
-//        String opt4 = option4.substring(0, 1);
-//        System.out.printf("Select a menu option:\n    %s: %s\n    %s: %s\n    %s: %s\n    %s: %s\n", opt1, option1, opt2, option2, opt3, option3, opt4, option4);
-//        String ans = "";
-//        boolean run = true;
-//        do {
-//            if (pipe.hasNext()) {
-//                ans = pipe.nextLine().toUpperCase();
-//                if (ans.equals(opt1) || ans.equals(opt2) || ans.equals(opt3) || ans.equals(opt4)) {
-//                    run = false;
-//                }
-//            }
-//        } while (run);
-//        return ans;
-//    }
+    public static void addToArrList(Scanner in, ArrayList arrList) {
+        String itemToAdd = SafeInput.getNonZeroLenString(in, "What would you like to add to the array list");
+        arrList.add(itemToAdd);
+    }
+    
+    public static void deleteFromArrList(Scanner in, ArrayList arrList) {
+        int itemToDelete = SafeInput.getRangedInt(in, "What item do you want to delete", 0, arrList.size());
+        arrList.remove(itemToDelete);
+    }
+    
+    public static void displayArrList(ArrayList arrList) {
+        for (int i = 0; i < arrList.size(); i++) {
+            System.out.println(arrList.get(i));
+        }
+    }
 }
