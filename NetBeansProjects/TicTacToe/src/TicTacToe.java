@@ -48,7 +48,9 @@ public class TicTacToe {
 //        board[2][0] = "   ";    board[2][1] = "   ";    board[2][2] = "   ";
 //        display();
 //        System.out.println(isWinPossibleRow(currentPlayer));
-            
+           
+
+        // TODO: Must fix toggling players X/O. Should alternate
         do {
             if (games % 2 == 0) { // toggles player every other game
                 currentPlayer = player1;
