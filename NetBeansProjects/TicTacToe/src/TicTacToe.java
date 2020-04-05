@@ -38,8 +38,10 @@ public class TicTacToe {
         String player1 = " X ";
         String player2 = " O ";
         String currentPlayer = player1;
-        String notCurrentPlayer = player2;
         String currentPlayerString;
+        String firstTurn;
+        String secondTurn;
+
         
         /* testing sandbox */
 //        clearBoard();
@@ -48,16 +50,12 @@ public class TicTacToe {
 //        board[2][0] = "   ";    board[2][1] = "   ";    board[2][2] = "   ";
 //        display();
 //        System.out.println(isWinPossibleRow(currentPlayer));
-           
-
-        // TODO: Must fix toggling players X/O. Should alternate
+            
         do {
             if (games % 2 == 0) { // toggles player every other game
                 currentPlayer = player1;
-                notCurrentPlayer = player2;
             } else {
                 currentPlayer = player2;
-                notCurrentPlayer = player1;
             }
             games++;
             int moves = 0;
@@ -67,11 +65,9 @@ public class TicTacToe {
             for (int i = 0; i < 9; i++) { // maximum 9 turns for 9 spaces on the board
                 if (i % 2 == 0) {
                     currentPlayer = player1;
-                    notCurrentPlayer = player2;
                     currentPlayerString = P1;
                 } else {
                     currentPlayer = player2;
-                    notCurrentPlayer = player1;
                     currentPlayerString = P2;
                 }
                 System.out.printf("%s, it's your turn!\n", currentPlayerString);
@@ -84,15 +80,17 @@ public class TicTacToe {
                 display();
                 
                 if (moves >= 5) { // checks win/tie conditions after the 5th turn
-                    if (isColWin(currentPlayer) || isRowWin(currentPlayer) || isDiagonalWin(currentPlayer)) { 
+                    boolean winExists = (isColWin(currentPlayer) || isRowWin(currentPlayer) || isDiagonalWin(currentPlayer));
+                    if (winExists) { 
                         System.out.printf("WINNER WINNER CHICKEN DINNER, %s wins!", currentPlayerString);
                         break;
-                    } else if (isTie()) {
+                    } else if (moves == 9 && !winExists) { // in lieu of isTie() function
                         System.out.println("TIE GAME");
                     }
                 } 
             }
         } while (SafeInput.getYNConfirm(in, "Would you like to play again"));
+        System.out.printf("You played %d game(s).\n", games);
     }
     
     /* clears board */
@@ -181,103 +179,4 @@ public class TicTacToe {
             return false;
         }
     }
-    
-    /**
-     * @return true if players tie
-     */
-    private static boolean isTie() {
-        // all spaces are filled is taken care of with main game flow
-        // no win possible 
-        int count = 0;
-        for (int i = 0; i < ROW; i++) {
-            for (int j = 0; j < COL; j++) {
-                if (!board[i][j].equals("   ")) {
-                    count++;
-                }
-            }
-        }
-        if (count == 9) {
-            System.out.println("All spaces are filled");
-            return true;
-        } else {
-            return false;
-        }
-        
-    }
-    
-    private static boolean isWinPossibleCol(String player) {
-        // returns true if win is still possible
-        for (int i = 0; i < ROW; i++) {
-            int count = 0;
-            int blank = 0;
-            for (int j = 0; j < COL; j++) {
-                if (board[j][i].equals(player)) {
-                    count++;
-                } else if (board[i][j].equals("   ")) {
-                    blank++;
-                }
-                if (count + blank == 3) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-    
-    private static boolean isWinPossibleRow(String player) {
-        // returns true if win is still possible
-        for (int i = 0; i < ROW; i++) {
-            int count = 0;
-            int blank = 0;
-            for (int j = 0; j < COL; j++) {
-                if (board[i][j].equals(player)) {
-                    count++;
-                } else if (board[i][j].equals("   ")) {
-                    blank++;
-                }
-                if (count + blank == 3) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    } 
-    
-    private static boolean isWinPossibleDiagonalDown(String player) {
-        // returns true if win is still possible
-        int count = 0;
-        int blank = 0;
-        for (int i = 0; i < ROW; i++) {
-            for (int j = 0; j < COL; j++) {
-                if (board[i][j].equals(player)) {
-                    count++;
-                } else if (board[i][j].equals("   ")) {
-                    blank++;
-                }
-                if (count + blank == 3) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    } 
-    
-    private static boolean isWinPossibleDiagonalUp(String player) {
-        // returns true if win is still possible
-        int count = 0;
-        int blank = 0;
-        for (int i = 0; i < ROW; i++) {
-            for (int j = 2; j > COL; j--) {
-                if (board[i][j].equals(player)) {
-                    count++;
-                } else if (board[i][j].equals("   ")) {
-                    blank++;
-                }
-                if (count + blank == 3) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    } 
 }
