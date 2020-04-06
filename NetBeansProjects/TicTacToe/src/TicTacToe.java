@@ -19,15 +19,15 @@
  */
 import java.util.Scanner;
 public class TicTacToe {
-
-    /**
-     * @param args the command line arguments
-     */
     
+    /* board declaration */
     private static final int ROW = 3;
     private static final int COL = 3;
     private static String board[][] = new String[ROW][COL];
     
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int games = 0;
@@ -39,9 +39,7 @@ public class TicTacToe {
         String player2 = " O ";
         String currentPlayer = player1;
         String currentPlayerString;
-        String firstTurn;
-        String secondTurn;
-
+        int moves;
         
         /* testing sandbox */
 //        clearBoard();
@@ -52,14 +50,8 @@ public class TicTacToe {
 //        System.out.println(isWinPossibleRow(currentPlayer));
             
         do {
-            if (games % 2 == 0) { // toggles player every other game
-                currentPlayer = player1;
-            } else {
-                currentPlayer = player2;
-            }
             games++;
-            int moves = 0;
-            
+            moves = 0;
             clearBoard();
             display();
             for (int i = 0; i < 9; i++) { // maximum 9 turns for 9 spaces on the board
@@ -70,7 +62,7 @@ public class TicTacToe {
                     currentPlayer = player2;
                     currentPlayerString = P2;
                 }
-                System.out.printf("%s, it's your turn!\n", currentPlayerString);
+                System.out.printf("\n%s, it's your turn!\n", currentPlayerString);
                     do {
                         row = SafeInput.getRangedInt(in, "Enter your row coordinate", 1, 3) - 1;
                         col = SafeInput.getRangedInt(in, "Enter your column coordinate", 1, 3) - 1;
@@ -80,14 +72,21 @@ public class TicTacToe {
                 display();
                 
                 if (moves >= 5) { // checks win/tie conditions after the 5th turn
-                    boolean winExists = (isColWin(currentPlayer) || isRowWin(currentPlayer) || isDiagonalWin(currentPlayer));
-                    if (winExists) { 
+                    if (isWin(currentPlayer)) { 
                         System.out.printf("WINNER WINNER CHICKEN DINNER, %s wins!", currentPlayerString);
                         break;
-                    } else if (moves == 9 && !winExists) { // in lieu of isTie() function
+                    } else if (moves == 9 && !isWin(currentPlayer)) { // in lieu of isTie() function
                         System.out.println("TIE GAME");
                     }
                 } 
+            }
+            /* toggle X/O at the end of the game */
+            if (player1.equals(" X ")) {
+                player1 = " O ";
+                player2 = " X ";
+            } else {
+                player1 = " X ";
+                player2 = " O ";
             }
         } while (SafeInput.getYNConfirm(in, "Would you like to play again"));
         System.out.printf("You played %d game(s).\n", games);
@@ -134,15 +133,9 @@ public class TicTacToe {
      * @return true column win condition
      */
     private static boolean isColWin(String player) {
-        for (int i = 0; i < ROW; i++) {
-            int count = 0;
-            for (int j = 0; j < COL; j++) {
-                if (board[j][i].equals(player)) {
-                    count++;
-                }
-                if (count == 3) {
+        for (int col = 0; col < COL; col++) {
+            if (board[0][col].equals(player) && board[1][col].equals(player) && board[2][col].equals(player)) {
                     return true;
-                }
             }
         }
         return false;
@@ -153,15 +146,9 @@ public class TicTacToe {
      * @return true row win condition
      */
     private static boolean isRowWin(String player) {
-        for (int i = 0; i < ROW; i++) {
-            int count = 0;
-            for (int j = 0; j < COL; j++) {
-                if (board[i][j].equals(player)) {
-                    count++;
-                }
-                if (count == 3) {
+        for (int row = 0; row < ROW; row++) {
+            if (board[row][0].equals(player) && board[row][1].equals(player) && board[row][2].equals(player)) {
                     return true;
-                }
             }
         }
         return false;
@@ -179,4 +166,17 @@ public class TicTacToe {
             return false;
         }
     }
+    
+    /**
+     * @param player a string that represents the player
+     * @return true if one of the win conditions are true
+     */
+    private static boolean isWin(String player) {
+        if (isColWin(player) || isRowWin(player) || isDiagonalWin(player)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
 }
