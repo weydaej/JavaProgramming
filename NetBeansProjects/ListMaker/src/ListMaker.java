@@ -21,9 +21,9 @@ public class ListMaker {
         ArrayList<String> arrList = new ArrayList<>();
         String ans = "";
         boolean run = true;
-
+        
         do {
-            ans = SafeInput.getRegExString(in, "Select a menu option:\n    A: Add\n    D: Delete\n    P: Print\n    Q: Quit\n", "[AaDdPpQq]").toUpperCase();
+            ans = printMenu(in, arrList);
             switch (ans) {
                 case "A":
                     addToArrList(in, arrList);
@@ -51,13 +51,25 @@ public class ListMaker {
     }
     
     public static void deleteFromArrList(Scanner in, ArrayList arrList) {
-        int itemToDelete = SafeInput.getRangedInt(in, "What item do you want to delete", 0, arrList.size());
-        arrList.remove(itemToDelete);
+        int itemToDelete = SafeInput.getRangedInt(in, "What item do you want to delete", 1, arrList.size());
+        arrList.remove(itemToDelete - 1);
     }
     
     public static void displayArrList(ArrayList arrList) {
         for (int i = 0; i < arrList.size(); i++) {
             System.out.println(arrList.get(i));
         }
+    }
+    
+    private static String printMenu(Scanner in, ArrayList arrList) {
+        if (arrList.isEmpty()) {
+            System.out.println("Your list is currently empty.");
+        } else {
+            System.out.println("Current list:");
+            for (int i = 0; i < arrList.size(); i++) {
+                System.out.printf("    %d. %s\n", i + 1 , arrList.get(i));
+            }
+        }
+        return SafeInput.getRegExString(in, "Select a menu option:\n    A: Add\n    D: Delete\n    P: Print\n    Q: Quit\n", "[AaDdPpQq]").toUpperCase();
     }
 }
