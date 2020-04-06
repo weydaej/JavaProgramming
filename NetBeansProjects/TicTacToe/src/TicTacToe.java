@@ -68,9 +68,8 @@ public class TicTacToe {
                         System.out.printf("WINNER WINNER CHICKEN DINNER, %s wins!", currentPlayerString);
                         break;
                     } else if (moves >= 7) {
-                        System.out.println("7 or greater");
                         if (isTie()) {
-                            System.out.println("TIE");
+                            System.out.println("TIE GAME!");
                             break;
                         }
                     }
