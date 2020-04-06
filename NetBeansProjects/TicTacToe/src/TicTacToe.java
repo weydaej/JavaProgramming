@@ -9,14 +9,6 @@
  * @author weydaej
  */
 
-/**
- * TODO
- * ---------------------------------------------------------------------------------------
- * Fix isTie()
- * Implement twoInARow() code to help decipher when the game is "over"
- * Play through several games with different win conditions to make sure no bugs
- * Maybe add some stats (player 1 won X # of games, player 2 won X # of games, X # of ties)
- */
 import java.util.Scanner;
 public class TicTacToe {
     
@@ -70,15 +62,20 @@ public class TicTacToe {
                 moves += 1;
                 board[row][col] = currentPlayer;
                 display();
-                
+
                 if (moves >= 5) { // checks win/tie conditions after the 5th turn
                     if (isWin(currentPlayer)) { 
                         System.out.printf("WINNER WINNER CHICKEN DINNER, %s wins!", currentPlayerString);
                         break;
-                    } else if (moves == 9 && !isWin(currentPlayer)) { // in lieu of isTie() function
-                        System.out.println("TIE GAME");
+                    } else if (moves >= 7) {
+                        System.out.println("7 or greater");
+                        if (isTie()) {
+                            System.out.println("TIE");
+                            break;
+                        }
                     }
                 } 
+
             }
             /* toggle X/O at the end of the game */
             if (player1.equals(" X ")) {
@@ -179,4 +176,131 @@ public class TicTacToe {
         }
     }
     
+    /**
+     * @return true if tie occurs
+     */
+    private static boolean isTie() {
+        int count = 0;
+        if (isTieRows()) {
+            count++;
+        }
+        if (isTieCols()) {
+            count++;
+        }
+        if (isTieDiagDown()) {
+            count++;
+        }
+        if (isTieDiagUp()) {
+            count++;
+        }
+        
+        if (count >= 3) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * @return true if there is at least an X and O in every row
+     */
+    private static boolean isTieRows() {
+        int countX = 0;
+        int countO = 0;
+        int numDeadWinVectors = 0;
+        for (int i = 0; i < ROW; i++) {
+            countX = 0;
+            countO = 0;
+            for (int j = 0; j < COL; j++) {
+                if (board[i][j].equals(" X ")) {
+                    countX++;
+                } else if (board[i][j].equals(" O ")) {
+                    countO++;
+                }
+                if (countX >= 1 && countO >= 1) {
+                    numDeadWinVectors++;
+                }
+            }
+        }
+        if (numDeadWinVectors >= 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * @return true if there is at least an X and O in every column
+     */
+    private static boolean isTieCols() {
+        int countX = 0;
+        int countO = 0;
+        int numDeadWinVectors = 0;
+        for (int i = 0; i < ROW; i++) {
+            countX = 0;
+            countO = 0;
+            for (int j = 0; j < COL; j++) {
+                if (board[j][i].equals(" X ")) {
+                    countX++;
+                } else if (board[j][i].equals(" O ")) {
+                    countO++;
+                }
+                if (countX >= 1 && countO >= 1) {
+                    numDeadWinVectors++;
+                }
+            }
+        }
+        if (numDeadWinVectors >= 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * @return true if there is an X and O in the diagonal down
+     */
+    private static boolean isTieDiagDown() {
+        int countX = 0;
+        int countO = 0;
+        for (int i = 0; i < ROW; i++) {
+            if (board[i][i].equals(" X ")) {
+                countX++;
+            } else if (board[i][i].equals(" O ")) {
+                countO++;
+            }
+        }
+        if (countX >= 1 && countO >= 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * @return true if there is an X and O in the diagonal up
+     */
+    private static boolean isTieDiagUp() {
+        int countX = 0;
+        int countO = 0;
+        if (board[0][2].equals(" X ")) {
+            countX++;
+        } else if (board[0][2].equals(" O ")) {
+            countO++;
+        }
+        if (board[1][1].equals(" X ")) {
+            countX++;
+        } else if (board[1][1].equals(" O ")) {
+            countO++;
+        }
+        if (board[2][0].equals(" X ")) {
+            countX++;
+        } else if (board[2][0].equals(" O ")) {
+            countO++;
+        }
+        if (countX >= 1 && countO >= 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
