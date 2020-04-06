@@ -75,7 +75,6 @@ public class TicTacToe {
                         }
                     }
                 } 
-
             }
             /* toggle X/O at the end of the game */
             if (player1.equals(" X ")) {
