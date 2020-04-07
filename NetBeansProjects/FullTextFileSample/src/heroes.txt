@@ -1,0 +1,7 @@
+Aragorn
+Bilbo
+Frodo
+Samwise
+Gandalf
+Legolas
+Gimli
