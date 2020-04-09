@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 
+import java.io.File;
+import java.nio.file.Path;
+
 /**
  *
  * @author weydaej
@@ -14,7 +17,8 @@ public class FileAway {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Path target = new File(System.getProperty("user.dir")).toPath();
+        System.out.println(target);
     }
     
 }
