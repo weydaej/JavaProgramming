@@ -20,7 +20,6 @@ public class FileAway {
         // testing out how to use File class
         Path target = new File(System.getProperty("user.dir")).toPath();
         target = target.resolve("src\\test.txt");    
-        System.out.println(target);
         
     }
 }
