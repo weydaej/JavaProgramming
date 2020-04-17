@@ -1,3 +1,7 @@
-hi this is a test file
-for the fileaway lab
-lab 12
+this 
+is 
+a 
+textfile that i am 
+using to 
+test
+for lab 12
