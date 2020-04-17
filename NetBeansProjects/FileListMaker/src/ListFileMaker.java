@@ -15,7 +15,7 @@ import java.io.PrintWriter;
 import java.nio.file.Path;
 import javax.swing.JFileChooser;
 
-public class FileListMaker {
+public class ListFileMaker {
 
     /**
      * @param args the command line arguments
