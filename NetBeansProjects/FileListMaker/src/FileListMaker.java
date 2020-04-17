@@ -21,17 +21,27 @@ public class FileListMaker {
         ArrayList<String> arrList = new ArrayList<>();
         String ans = "";
         boolean run = true;
+        boolean needsToBeSaved = false;
         
         do {
             ans = printMenu(in, arrList);
             switch (ans) {
                 case "A":
                     addToArrList(in, arrList);
+                    needsToBeSaved = true;
+                    break;
+                case "C":
+                    needsToBeSaved = true;
                     break;
                 case "D":
+                    needsToBeSaved = true;
                     deleteFromArrList(in, arrList);
                     break;
-                case "P":
+                case "O":
+                    break;
+                case "S":
+                    break;
+                case "V":
                     displayArrList(arrList);
                     break;
                 case "Q":
@@ -41,6 +51,10 @@ public class FileListMaker {
                         System.out.println("Returning to menu...");
                     }
                     break;
+                    
+//                if (needsToBeSaved) {
+//                    // save program state
+//                }
             }
         } while (run);
     }
@@ -50,9 +64,21 @@ public class FileListMaker {
         arrList.add(itemToAdd);
     }
     
+    public static void clearAllElements(Scanner in, ArrayList arrList) {
+        
+    }
+    
     public static void deleteFromArrList(Scanner in, ArrayList arrList) {
         int itemToDelete = SafeInput.getRangedInt(in, "What item do you want to delete", 1, arrList.size());
         arrList.remove(itemToDelete - 1);
+    }
+    
+    public static void openListFromFile() {
+        
+    }
+    
+    public static void saveCurrentFile() {
+        
     }
     
     public static void displayArrList(ArrayList arrList) {
@@ -70,6 +96,6 @@ public class FileListMaker {
                 System.out.printf("    %d. %s\n", i + 1 , arrList.get(i));
             }
         }
-        return SafeInput.getRegExString(in, "Select a menu option:\n    A: Add\n    D: Delete\n    P: Print\n    Q: Quit\n", "[AaDdPpQq]").toUpperCase();
+        return SafeInput.getRegExString(in, "Select a menu option:\n    A: Add\n    C: Clear\n    D: Delete\n    O: Open\n    S: Save\n    V: View\n    Q: Quit\n", "[AaCcDdOoVvQq]").toUpperCase();
     }
 }
