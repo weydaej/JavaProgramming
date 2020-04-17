@@ -10,6 +10,10 @@
  */
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.PrintWriter;
+import java.nio.file.Path;
+import javax.swing.JFileChooser;
 
 public class FileListMaker {
 
@@ -18,10 +22,19 @@ public class FileListMaker {
      */
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
+        Scanner inFile;
+        PrintWriter outFile;
+        JFileChooser chooser = new JFileChooser();
+        String line;
         ArrayList<String> arrList = new ArrayList<>();
         String ans = "";
         boolean run = true;
         boolean needsToBeSaved = false;
+        
+        Path target = new File(System.getProperty("user.dir")).toPath();
+        target = target.resolve("src");
+        chooser.setCurrentDirectory(target.toFile());
+        
         
         do {
             ans = printMenu(in, arrList);
