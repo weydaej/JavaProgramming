@@ -31,7 +31,7 @@ public class ListFileMaker {
         ArrayList<String> arrList = new ArrayList<>();
         String ans = "";
         boolean run = true;
-        boolean needsToBeSaved = false;
+        boolean needsToBeSaved = false; // initializing dirty flag
         
         Path target = new File(System.getProperty("user.dir")).toPath();
         target = target.resolve("src");
@@ -54,6 +54,7 @@ public class ListFileMaker {
                     }
                     break;
                 case "C":
+                    clearAllElements(arrList);
                     needsToBeSaved = true;
                     break;
                 case "D":
@@ -100,8 +101,11 @@ public class ListFileMaker {
         arrList.add(itemToAdd);
     }
     
-    public static void clearAllElements(Scanner in, ArrayList arrList) {
-        
+    public static void clearAllElements(ArrayList arrList) {
+//        for (int i = 0; i < arrList.size(); i++) {
+//            arrList.get(i) = null;
+//        }
+        arrList.removeAll(arrList);
     }
     
     public static void deleteFromArrList(Scanner in, ArrayList arrList) {
