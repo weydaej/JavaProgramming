@@ -77,21 +77,21 @@ public class ListFileMaker {
                     }
                     break;
                 case "S":
+                    saveCurrentFile();
                     break;
                 case "V":
                     displayArrList(arrList);
                     break;
                 case "Q":
+                    if (needsToBeSaved) {
+                        saveCurrentFile();
+                    }
                     if (SafeInput.getYNConfirm(in, "Are you sure")) {
                         run = false;
                     } else {
                         System.out.println("Returning to menu...");
                     }
                     break;
-                    
-//                if (needsToBeSaved) {
-//                    // save program state
-//                }
             }
         } while (run);
     }
