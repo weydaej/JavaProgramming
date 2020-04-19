@@ -102,9 +102,6 @@ public class ListFileMaker {
     }
     
     public static void clearAllElements(ArrayList arrList) {
-//        for (int i = 0; i < arrList.size(); i++) {
-//            arrList.get(i) = null;
-//        }
         arrList.removeAll(arrList);
     }
     
@@ -112,7 +109,6 @@ public class ListFileMaker {
         int itemToDelete = SafeInput.getRangedInt(in, "What item do you want to delete", 1, arrList.size());
         arrList.remove(itemToDelete - 1);
     }
-    
     
     public static void saveCurrentFile() {
         
