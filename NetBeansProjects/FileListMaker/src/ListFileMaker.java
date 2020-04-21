@@ -11,6 +11,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -71,8 +72,11 @@ public class ListFileMaker {
                             System.out.println("You must select a file! Terminating program...");
                             System.exit(0);
                         }
+                    } catch (FileNotFoundException e) {
+                        System.out.println("File Not Found Error!");
+                        e.printStackTrace();
                     } catch (IOException e) {
-                        System.out.println("IOException Error");
+                        System.out.println("IOException Error!");
                         e.printStackTrace();
                     }
                     break;
