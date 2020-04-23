@@ -18,8 +18,7 @@ import java.io.PrintWriter;
 import java.nio.file.Path;
 import javax.swing.JFileChooser;
 
-// TODO
-/*
+/* TODO
 * saveCurrentFile needs to be finished
 * open file ... not sure if it makes sense to do it this way
 * need to do something with the dirty flag.. thinking call saveCurrentFile 
