@@ -88,6 +88,7 @@ public class ListFileMaker {
                     }
                     break;
                 case "S":
+                    // Figure out if this should just trigger the dirty flag or actually call the save function
                     saveCurrentFile();
                     break;
                 case "V":
