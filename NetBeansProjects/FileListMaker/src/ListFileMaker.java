@@ -115,6 +115,7 @@ public class ListFileMaker {
     }
     
     public static void clearAllElements(ArrayList arrList) {
+        // deletes all lines in the list
         arrList.removeAll(arrList);
     }
     
@@ -137,6 +138,7 @@ public class ListFileMaker {
     }
     
     private static String printMenu(Scanner in, ArrayList arrList) {
+        // should print out list, adding "#: " 
         if (arrList.isEmpty()) {
             System.out.println("Your list is currently empty.");
         } else {
