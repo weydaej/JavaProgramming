@@ -123,7 +123,8 @@ public class ListFileMaker {
     }
     
     public static void saveCurrentFile() {
-        
+        // save and close?
+        // or save and keep open until quit?
     }
     
     public static void displayArrList(ArrayList arrList) {
