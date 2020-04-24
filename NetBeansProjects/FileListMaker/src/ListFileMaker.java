@@ -118,6 +118,7 @@ public class ListFileMaker {
     }
     
     public static void deleteFromArrList(Scanner in, ArrayList arrList) {
+        // delete selected line
         int itemToDelete = SafeInput.getRangedInt(in, "What item do you want to delete", 1, arrList.size());
         arrList.remove(itemToDelete - 1);
     }
@@ -128,6 +129,7 @@ public class ListFileMaker {
     }
     
     public static void displayArrList(ArrayList arrList) {
+        // print list line by line
         for (int i = 0; i < arrList.size(); i++) {
             System.out.println(arrList.get(i));
         }
