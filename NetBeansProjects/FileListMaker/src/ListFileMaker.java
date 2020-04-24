@@ -109,6 +109,7 @@ public class ListFileMaker {
     }
     
     public static void addToArrList(Scanner in, ArrayList arrList) {
+        // add item to end of file 
         String itemToAdd = SafeInput.getNonZeroLenString(in, "What would you like to add to the array list");
         arrList.add(itemToAdd);
     }
