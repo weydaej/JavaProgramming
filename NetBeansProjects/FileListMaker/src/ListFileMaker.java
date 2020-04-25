@@ -36,7 +36,7 @@ public class ListFileMaker {
         PrintWriter outFile;
         JFileChooser chooser = new JFileChooser();
         String line;
-        ArrayList<String> arrList = new ArrayList<>();
+//        ArrayList<String> arrList = new ArrayList<>();
         String ans = "";
         boolean run = true;
         boolean needsToBeSaved = false; // initializing dirty flag
@@ -46,28 +46,28 @@ public class ListFileMaker {
         chooser.setCurrentDirectory(target.toFile());
         
         do {
-            ans = printMenu(in, arrList);
+//            ans = printMenu(in, arrList);
             switch (ans) {
                 case "A":
-                    addToArrList(in, arrList);
+//                    addToArrList(in, arrList);
                     needsToBeSaved = true;
                     try  {
                         FileWriter writer = new FileWriter("output.txt");
-                        for (String str: arrList) {
-                            writer.write(str + System.lineSeparator());
-                        }
+//                        for (String str: arrList) {
+//                            writer.write(str + System.lineSeparator());
+//                        }
                         writer.close();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
                 case "C":
-                    clearAllElements(arrList);
+//                    clearAllElements(arrList);
                     needsToBeSaved = true;
                     break;
                 case "D":
                     needsToBeSaved = true;
-                    deleteFromArrList(in, arrList);
+//                    deleteFromArrList(in, arrList);
                     break;
                 case "O":
                     try {
@@ -92,7 +92,7 @@ public class ListFileMaker {
                     saveCurrentFile();
                     break;
                 case "V":
-                    displayArrList(arrList);
+//                    displayArrList(arrList);
                     break;
                 case "Q":
                     if (needsToBeSaved) {
