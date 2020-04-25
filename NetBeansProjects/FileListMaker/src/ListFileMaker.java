@@ -36,7 +36,6 @@ public class ListFileMaker {
         PrintWriter outFile;
         JFileChooser chooser = new JFileChooser();
         String line;
-//        ArrayList<String> arrList = new ArrayList<>();
         String ans = "";
         boolean run = true;
         boolean needsToBeSaved = false; // initializing dirty flag
@@ -46,28 +45,31 @@ public class ListFileMaker {
         chooser.setCurrentDirectory(target.toFile());
         
         do {
-//            ans = printMenu(in, arrList);
+            ans = printMenu(in);
             switch (ans) {
                 case "A":
-//                    addToArrList(in, arrList);
+                    addToList(in);
                     needsToBeSaved = true;
                     try  {
                         FileWriter writer = new FileWriter("output.txt");
-//                        for (String str: arrList) {
-//                            writer.write(str + System.lineSeparator());
-//                        }
+//                      replace array list with file
+//                      for (String str: arrList) {
+//                          writer.write(str + System.lineSeparator());
+//                      }
                         writer.close();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
                 case "C":
+                    // update clearAllElements using file instead of arraylist
 //                    clearAllElements(arrList);
                     needsToBeSaved = true;
                     break;
                 case "D":
+                    // update deleteFromArrayList using file instead of arraylist
+                    deleteFromList(in);
                     needsToBeSaved = true;
-//                    deleteFromArrList(in, arrList);
                     break;
                 case "O":
                     try {
@@ -92,7 +94,7 @@ public class ListFileMaker {
                     saveCurrentFile();
                     break;
                 case "V":
-//                    displayArrList(arrList);
+//                    displayList(numLines);
                     break;
                 case "Q":
                     if (needsToBeSaved) {
@@ -108,10 +110,9 @@ public class ListFileMaker {
         } while (run);
     }
     
-    public static void addToArrList(Scanner in, ArrayList arrList) {
-        // add item to end of file 
+    public static void addToList(Scanner in) {
         String itemToAdd = SafeInput.getNonZeroLenString(in, "What would you like to add to the array list");
-        arrList.add(itemToAdd);
+        // add itemToAdd to end of file
     }
     
     public static void clearAllElements(ArrayList arrList) {
@@ -119,10 +120,9 @@ public class ListFileMaker {
         arrList.removeAll(arrList);
     }
     
-    public static void deleteFromArrList(Scanner in, ArrayList arrList) {
-        // delete selected line
-        int itemToDelete = SafeInput.getRangedInt(in, "What item do you want to delete", 1, arrList.size());
-        arrList.remove(itemToDelete - 1);
+    public static void deleteFromList(Scanner in) {
+//        int itemToDelete = SafeInput.getRangedInt(in, "What item do you want to delete", 1, numLines);
+//        remove item from list
     }
     
     public static void saveCurrentFile() {
@@ -130,23 +130,21 @@ public class ListFileMaker {
         // or save and keep open until quit?
     }
     
-    public static void displayArrList(ArrayList arrList) {
+    public static void displayList(int numLines) {
         // print list line by line
-        for (int i = 0; i < arrList.size(); i++) {
-            System.out.println(arrList.get(i));
+        for (int i = 0; i < numLines; i++) {
+            // print #: + line
         }
     }
     
-    private static String printMenu(Scanner in, ArrayList arrList) {
-        // should print out list, adding "#: " 
-        if (arrList.isEmpty()) {
-            System.out.println("Your list is currently empty.");
-        } else {
-            System.out.println("Current list:");
-            for (int i = 0; i < arrList.size(); i++) {
-                System.out.printf("    %d. %s\n", i + 1 , arrList.get(i));
-            }
-        }
+    private static String printMenu(Scanner in) {
+        // if list is empty {
+            // System.out.println("Your list is currently empty.");
+        //} else {
+            // System.out.println("Current list:");
+                // should print out list, adding "#: " 
+        // } 
+        // returns the selected regex option 
         return SafeInput.getRegExString(in, "Select a menu option:\n    A: Add\n    C: Clear\n    D: Delete\n    O: Open\n    S: Save\n    V: View\n    Q: Quit\n", "[AaCcDdOoVvQq]").toUpperCase();
     }
 }
