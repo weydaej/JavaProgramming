@@ -19,23 +19,18 @@ import java.nio.file.Path;
 import javax.swing.JFileChooser;
 
 public class ListFileMaker {
-
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        Scanner inFile;
         PrintWriter outFile;
-        JFileChooser chooser = new JFileChooser();
         String line;
+        int numLines = 0;
         String ans = "";
         boolean run = true;
         boolean needsToBeSaved = false; // initializing dirty flag
-        
-        Path target = new File(System.getProperty("user.dir")).toPath();
-        target = target.resolve("src");
-        chooser.setCurrentDirectory(target.toFile());
         
         do {
             ans = printMenu(in);
@@ -60,30 +55,18 @@ public class ListFileMaker {
                     needsToBeSaved = true;
                     break;
                 case "D":
-                    // update deleteFromArrayList using file instead of arraylist
+                    // update deleteFromList using file instead of arraylist
                     deleteFromList(in);
                     needsToBeSaved = true;
                     break;
                 case "O":
-                    try {
-                        if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                            target = chooser.getSelectedFile().toPath();
-                            inFile = new Scanner(target);
-                            System.out.println("File: " + target.getFileName());
-                        } else { // user did not select a file
-                            System.out.println("You must select a file! Terminating program...");
-                            System.exit(0);
-                        }
-                    } catch (FileNotFoundException e) {
-                        System.out.println("File Not Found Error!");
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        System.out.println("IOException Error!");
-                        e.printStackTrace();
-                    }
+                    // save existing list if needed
+                    
                     break;
                 case "S":
                     // Figure out if this should just trigger the dirty flag or actually call the save function
+                    // if file exists, save it
+                    // else allow user to save as new list
                     saveCurrentFile();
                     break;
                 case "V":
@@ -119,14 +102,37 @@ public class ListFileMaker {
     }
     
     public static void saveCurrentFile() {
-        // save and close?
-        // or save and keep open until quit?
+        // close file on save
     }
     
     public static void displayList(int numLines) {
         // print list line by line
         for (int i = 0; i < numLines; i++) {
             // print #: + line
+        }
+    }
+    
+    private static void openFile() {
+        Scanner inFile;
+        JFileChooser chooser = new JFileChooser();
+        Path target = new File(System.getProperty("user.dir")).toPath();
+        target = target.resolve("src");
+        chooser.setCurrentDirectory(target.toFile());
+        try {
+            if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                target = chooser.getSelectedFile().toPath();
+                inFile = new Scanner(target);
+                System.out.println("File: " + target.getFileName());
+            } else { // user did not select a file
+                System.out.println("You must select a file! Terminating program...");
+                System.exit(0);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File Not Found Error!");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("IOException Error!");
+            e.printStackTrace();
         }
     }
     
