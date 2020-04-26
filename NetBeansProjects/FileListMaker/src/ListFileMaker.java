@@ -9,7 +9,6 @@
  * @author weydaej
  */
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -31,7 +30,7 @@ public class ListFileMaker {
         String ans = "";
         boolean run = true;
         boolean needsToBeSaved = false; // initializing dirty flag
-        String fileName = "";
+        File fileName;
         
         do {
             ans = printMenu(in);
@@ -43,7 +42,7 @@ public class ListFileMaker {
                     break;
                 case "C":
                     // update clearAllElements using file instead of arraylist
-//                    clearAllElements(arrList);
+                    clearAllElements(fileName);
                     needsToBeSaved = true;
                     break;
                 case "D":
@@ -83,9 +82,15 @@ public class ListFileMaker {
         // add itemToAdd to end of file
     }
     
-    public static void clearAllElements(ArrayList arrList) {
+    public static void clearAllElements(File file) {
         // deletes all lines in the list
-        arrList.removeAll(arrList);
+        try {
+            PrintWriter writer = new PrintWriter(file);
+            writer.print("");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     public static void deleteFromList(Scanner in) {
@@ -104,9 +109,9 @@ public class ListFileMaker {
         }
     }
     
-    private static String openFile() { // will return fileName
+    private static File openFile() { // will return fileName
         Scanner inFile;
-        String fileName = "";
+        File fileName;
         JFileChooser chooser = new JFileChooser();
         Path target = new File(System.getProperty("user.dir")).toPath();
         target = target.resolve("src");
@@ -115,8 +120,9 @@ public class ListFileMaker {
             if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                 target = chooser.getSelectedFile().toPath();
                 inFile = new Scanner(target);
-                fileName = target.getFileName().toString();
+                fileName = target.getFileName().toFile();
                 System.out.println("File: " + target.getFileName());
+                return fileName;
             } else { // user did not select a file
                 System.out.println("You must select a file! Terminating program...");
                 System.exit(0);
@@ -128,7 +134,7 @@ public class ListFileMaker {
             System.out.println("IOException Error!");
             e.printStackTrace();
         }
-        return fileName;
+        return null;
     }
     
     private static String printMenu(Scanner in) {
