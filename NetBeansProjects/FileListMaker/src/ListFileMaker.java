@@ -17,6 +17,15 @@ import java.io.PrintWriter;
 import java.nio.file.Path;
 import javax.swing.JFileChooser;
 
+/**
+ * TODO
+ * - create program state
+ * - clean up dirty flag
+ * - keep track of new list or opened list
+ * - loaded lists are saved with the same file name with ".txt" ext
+ * @author weydaej
+ */
+
 public class ListFileMaker {
     
     /**
