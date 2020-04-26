@@ -31,6 +31,7 @@ public class ListFileMaker {
         String ans = "";
         boolean run = true;
         boolean needsToBeSaved = false; // initializing dirty flag
+        String fileName = "";
         
         do {
             ans = printMenu(in);
@@ -38,16 +39,7 @@ public class ListFileMaker {
                 case "A":
                     addToList(in);
                     needsToBeSaved = true;
-                    try  {
-                        FileWriter writer = new FileWriter("output.txt");
-//                      replace array list with file
-//                      for (String str: arrList) {
-//                          writer.write(str + System.lineSeparator());
-//                      }
-                        writer.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    
                     break;
                 case "C":
                     // update clearAllElements using file instead of arraylist
@@ -61,7 +53,7 @@ public class ListFileMaker {
                     break;
                 case "O":
                     // save existing list if needed
-                    openFile();
+                    fileName = openFile();
                     break;
                 case "S":
                     // Figure out if this should just trigger the dirty flag or actually call the save function
@@ -112,7 +104,7 @@ public class ListFileMaker {
         }
     }
     
-    private static void openFile() {
+    private static String openFile() { // will return fileName
         Scanner inFile;
         JFileChooser chooser = new JFileChooser();
         Path target = new File(System.getProperty("user.dir")).toPath();
@@ -143,6 +135,17 @@ public class ListFileMaker {
             // System.out.println("Current list:");
                 // should print out list, adding "#: " 
         // } 
+        
+        try  {
+            FileWriter writer = new FileWriter("output.txt");
+            // prints line by line with #: in front
+            //for (String str: arrList) {
+            //    writer.write(str + System.lineSeparator());
+            //}
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // returns the selected regex option 
         return SafeInput.getRegExString(in, "Select a menu option:\n    A: Add\n    C: Clear\n    D: Delete\n    O: Open\n    S: Save\n    V: View\n    Q: Quit\n", "[AaCcDdOoVvQq]").toUpperCase();
     }
