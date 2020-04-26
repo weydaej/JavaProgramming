@@ -106,6 +106,7 @@ public class ListFileMaker {
     
     private static String openFile() { // will return fileName
         Scanner inFile;
+        String fileName = "";
         JFileChooser chooser = new JFileChooser();
         Path target = new File(System.getProperty("user.dir")).toPath();
         target = target.resolve("src");
@@ -114,6 +115,7 @@ public class ListFileMaker {
             if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                 target = chooser.getSelectedFile().toPath();
                 inFile = new Scanner(target);
+                fileName = target.getFileName().toString();
                 System.out.println("File: " + target.getFileName());
             } else { // user did not select a file
                 System.out.println("You must select a file! Terminating program...");
@@ -126,6 +128,7 @@ public class ListFileMaker {
             System.out.println("IOException Error!");
             e.printStackTrace();
         }
+        return fileName;
     }
     
     private static String printMenu(Scanner in) {
@@ -135,7 +138,7 @@ public class ListFileMaker {
             // System.out.println("Current list:");
                 // should print out list, adding "#: " 
         // } 
-        
+        // figure out how to use for each with file .. may want to loop through with hasNextLine?
         try  {
             FileWriter writer = new FileWriter("output.txt");
             // prints line by line with #: in front
