@@ -23,7 +23,8 @@ import javax.swing.JFileChooser;
  * - clean up dirty flag
  * - keep track of new list or opened list
  * - loaded lists are saved with the same file name with ".txt" ext
- * @author weydaej
+ * - maybe do similar to ListMaker -- just pass file to each function
+ * - if not, make file global.. is this safe?
  */
 
 public class ListFileMaker {
