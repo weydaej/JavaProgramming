@@ -110,6 +110,7 @@ public class ListFileMaker {
     
     public static void saveCurrentFile() {
         // close file on save
+        // make sure file saved as .txt file
     }
     
     public static void displayList(int numLines) {
