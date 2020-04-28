@@ -15,6 +15,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
+import java.util.StringTokenizer;
 import javax.swing.JFileChooser;
 
 /**
@@ -168,5 +169,15 @@ public class ListFileMaker {
         }
         // returns the selected regex option 
         return SafeInput.getRegExString(in, "Select a menu option:\n    A: Add\n    C: Clear\n    D: Delete\n    O: Open\n    S: Save\n    V: View\n    Q: Quit\n", "[AaCcDdOoVvQq]").toUpperCase();
+    }
+    
+    private static int numLines(Scanner inFile, Path target) {
+        int numOfLines = 0;
+        String line;
+        while (inFile.hasNextLine()) {
+            line = inFile.nextLine();
+            numOfLines++;
+        }
+        return numOfLines;
     }
 }
