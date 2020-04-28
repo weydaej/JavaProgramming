@@ -25,6 +25,7 @@ import javax.swing.JFileChooser;
  * - loaded lists are saved with the same file name with ".txt" ext
  * - maybe do similar to ListMaker -- just pass file to each function
  * - if not, make file global.. is this safe?
+ * - rework architecture entirely
  */
 
 public class ListFileMaker {
@@ -172,6 +173,7 @@ public class ListFileMaker {
     }
     
     private static int numLines(Scanner inFile, Path target) {
+        // need to fix how passing file in
         int numOfLines = 0;
         String line;
         while (inFile.hasNextLine()) {
