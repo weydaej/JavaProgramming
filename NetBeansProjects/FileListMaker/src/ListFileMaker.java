@@ -15,7 +15,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
-import java.util.StringTokenizer;
 import javax.swing.JFileChooser;
 
 /**
@@ -53,7 +52,8 @@ public class ListFileMaker {
                     break;
                 case "C":
                     // update clearAllElements using file instead of arraylist
-                    clearAllElements(fileName);
+                    // get filename somehow... pass it in or keep it globally
+//                    clearAllElements(fileName);
                     needsToBeSaved = true;
                     break;
                 case "D":
