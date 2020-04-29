@@ -11,6 +11,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -47,8 +48,7 @@ public class ListFileMaker {
                     openListFile(arrList);
                     break;
                 case "S":
-                    // saves list to txt file
-                    // or saves to the current file 
+                    saveCurrentFile(arrList);
                     break;
                 case "V":
                     displayList(arrList);
@@ -132,6 +132,22 @@ public class ListFileMaker {
     }
     
     public static void saveCurrentFile(ArrayList arrList) {
+        PrintWriter outFile;
+        Path target = new File(System.getProperty("user.dir")).toPath();
+        target = target.resolve("src\\list.txt");
         
+        try {
+            outFile = new PrintWriter(target.toString());
+            for (int i = 0; i < arrList.size(); i++) {
+                outFile.println(arrList.get(i));
+            }
+            outFile.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File Not Found Error");
+            e.printStackTrace();           
+        } catch (IOException e) {
+            System.out.println("IOException Error");
+            e.printStackTrace();
+        }
     }
 }
