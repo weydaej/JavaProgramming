@@ -54,10 +54,10 @@ public class ListFileMaker {
                     displayList(arrList);
                     break;
                 case "Q":
-                    if (needsToBeSaved) {
-                        saveCurrentFile(arrList);
-                    }
                     if (SafeInput.getYNConfirm(in, "Are you sure")) {
+                        if (needsToBeSaved) {
+                            saveCurrentFile(arrList);
+                        }
                         run = false;
                     } else {
                         System.out.println("Returning to menu...");
@@ -122,12 +122,8 @@ public class ListFileMaker {
             } else { // user did not select a file
                 System.out.println("You must select a file! Returning to menu...");
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("File Not Found!");
-            e.printStackTrace();
         } catch (IOException e) {
             System.out.println("IOException Error");
-            e.printStackTrace();
         }
     }
     
@@ -142,12 +138,8 @@ public class ListFileMaker {
                 outFile.println(arrList.get(i));
             }
             outFile.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File Not Found Error");
-            e.printStackTrace();           
         } catch (IOException e) {
             System.out.println("IOException Error");
-            e.printStackTrace();
         }
     }
 }
