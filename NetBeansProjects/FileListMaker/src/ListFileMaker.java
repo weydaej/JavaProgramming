@@ -17,7 +17,7 @@ import java.io.PrintWriter;
 import java.nio.file.Path;
 import javax.swing.JFileChooser;
 
-// THIS IS THE COPY BEFORE I POTENTIALLY RUIN IT
+// abandoning this project because professor is dropping it
 
 /**
  * TODO
