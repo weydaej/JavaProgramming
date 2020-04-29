@@ -8,8 +8,13 @@
  *
  * @author weydaej
  */
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Scanner;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 
 public class ListFileMaker {
 
@@ -26,13 +31,23 @@ public class ListFileMaker {
             ans = printMenu(in, arrList);
             switch (ans) {
                 case "A":
-                    addToArrList(in, arrList);
+                    addToList(in, arrList);
+                    break;
+                case "C":
+                    // clears list 
                     break;
                 case "D":
-                    deleteFromArrList(in, arrList);
+                    deleteFromList(in, arrList);
                     break;
-                case "P":
-                    displayArrList(arrList);
+                case "O":
+                    openListFile(arrList);
+                    break;
+                case "S":
+                    // saves list to txt file
+                    // or saves to the current file 
+                    break;
+                case "V":
+                    displayList(arrList);
                     break;
                 case "Q":
                     if (SafeInput.getYNConfirm(in, "Are you sure")) {
@@ -45,17 +60,17 @@ public class ListFileMaker {
         } while (run);
     }
     
-    public static void addToArrList(Scanner in, ArrayList arrList) {
+    public static void addToList(Scanner in, ArrayList arrList) {
         String itemToAdd = SafeInput.getNonZeroLenString(in, "What would you like to add to the array list");
         arrList.add(itemToAdd);
     }
     
-    public static void deleteFromArrList(Scanner in, ArrayList arrList) {
+    public static void deleteFromList(Scanner in, ArrayList arrList) {
         int itemToDelete = SafeInput.getRangedInt(in, "What item do you want to delete", 1, arrList.size());
         arrList.remove(itemToDelete - 1);
     }
     
-    public static void displayArrList(ArrayList arrList) {
+    public static void displayList(ArrayList arrList) {
         for (int i = 0; i < arrList.size(); i++) {
             System.out.println(arrList.get(i));
         }
@@ -70,6 +85,38 @@ public class ListFileMaker {
                 System.out.printf("    %d. %s\n", i + 1 , arrList.get(i));
             }
         }
-        return SafeInput.getRegExString(in, "Select a menu option:\n    A: Add\n    D: Delete\n    P: Print\n    Q: Quit\n", "[AaDdPpQq]").toUpperCase();
+        return SafeInput.getRegExString(in, "Select a menu option:\n    A: Add\n    C: Clear\n    D: Delete\n    O: Open\n    S: Save\n    V: View\n    Q: Quit\n", "[AaCcDdOoVvQq]").toUpperCase();
+    }
+    
+    private static void openListFile(ArrayList arrList) {
+        // add code for if a list is already open
+        Scanner inFile;
+        JFileChooser chooser = new JFileChooser();
+        String line;
+        
+        Path target = new File(System.getProperty("user.dir")).toPath();
+        target = target.resolve("src");
+        chooser.setCurrentDirectory(target.toFile());
+        
+        try {
+            if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                target = chooser.getSelectedFile().toPath();
+                inFile = new Scanner(target);
+                System.out.println("Opening File: " + target.getFileName());
+                while (inFile.hasNextLine()) {
+                    line = inFile.nextLine();
+                    arrList.add(line);
+                }
+                inFile.close();
+            } else { // user did not select a file
+                System.out.println("You must select a file! Returning to menu...");
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File Not Found!");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("IOException Error");
+            e.printStackTrace();
+        }
     }
 }
