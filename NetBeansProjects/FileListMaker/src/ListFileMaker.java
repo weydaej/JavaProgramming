@@ -26,18 +26,22 @@ public class ListFileMaker {
         ArrayList<String> arrList = new ArrayList<>();
         String ans = "";
         boolean run = true;
+        boolean needsToBeSaved = false;
         
         do {
             ans = printMenu(in, arrList);
             switch (ans) {
                 case "A":
                     addToList(in, arrList);
+                    needsToBeSaved = true;
                     break;
                 case "C":
                     clearList(arrList);
+                    needsToBeSaved = true;
                     break;
                 case "D":
                     deleteFromList(in, arrList);
+                    needsToBeSaved = true;
                     break;
                 case "O":
                     openListFile(arrList);
@@ -50,6 +54,9 @@ public class ListFileMaker {
                     displayList(arrList);
                     break;
                 case "Q":
+                    if (needsToBeSaved) {
+                        saveCurrentFile(arrList);
+                    }
                     if (SafeInput.getYNConfirm(in, "Are you sure")) {
                         run = false;
                     } else {
@@ -58,6 +65,18 @@ public class ListFileMaker {
                     break;
             }
         } while (run);
+    }
+    
+    private static String printMenu(Scanner in, ArrayList arrList) {
+        if (arrList.isEmpty()) {
+            System.out.println("Your list is currently empty.");
+        } else {
+            System.out.println("Current list:");
+            for (int i = 0; i < arrList.size(); i++) {
+                System.out.printf("    %d. %s\n", i + 1 , arrList.get(i));
+            }
+        }
+        return SafeInput.getRegExString(in, "Select a menu option:\n    A: Add\n    C: Clear\n    D: Delete\n    O: Open\n    S: Save\n    V: View\n    Q: Quit\n", "[AaCcDdOoVvQq]").toUpperCase();
     }
     
     public static void addToList(Scanner in, ArrayList arrList) {
@@ -78,18 +97,6 @@ public class ListFileMaker {
         for (int i = 0; i < arrList.size(); i++) {
             System.out.println(arrList.get(i));
         }
-    }
-    
-    private static String printMenu(Scanner in, ArrayList arrList) {
-        if (arrList.isEmpty()) {
-            System.out.println("Your list is currently empty.");
-        } else {
-            System.out.println("Current list:");
-            for (int i = 0; i < arrList.size(); i++) {
-                System.out.printf("    %d. %s\n", i + 1 , arrList.get(i));
-            }
-        }
-        return SafeInput.getRegExString(in, "Select a menu option:\n    A: Add\n    C: Clear\n    D: Delete\n    O: Open\n    S: Save\n    V: View\n    Q: Quit\n", "[AaCcDdOoVvQq]").toUpperCase();
     }
     
     private static void openListFile(ArrayList arrList) {
@@ -122,5 +129,9 @@ public class ListFileMaker {
             System.out.println("IOException Error");
             e.printStackTrace();
         }
+    }
+    
+    public static void saveCurrentFile(ArrayList arrList) {
+        
     }
 }
