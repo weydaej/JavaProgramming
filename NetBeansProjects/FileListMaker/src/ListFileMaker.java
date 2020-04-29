@@ -34,7 +34,7 @@ public class ListFileMaker {
                     addToList(in, arrList);
                     break;
                 case "C":
-                    // clears list 
+                    clearList(arrList);
                     break;
                 case "D":
                     deleteFromList(in, arrList);
@@ -63,6 +63,10 @@ public class ListFileMaker {
     public static void addToList(Scanner in, ArrayList arrList) {
         String itemToAdd = SafeInput.getNonZeroLenString(in, "What would you like to add to the array list");
         arrList.add(itemToAdd);
+    }
+    
+    public static void clearList(ArrayList arrList) {
+        arrList.clear();
     }
     
     public static void deleteFromList(Scanner in, ArrayList arrList) {
