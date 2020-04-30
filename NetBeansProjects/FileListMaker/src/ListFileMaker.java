@@ -45,10 +45,10 @@ public class ListFileMaker {
                     needsToBeSaved = true;
                     break;
                 case "O":
-                    fileName = openListFile(arrList);
+                    fileName = openListFile(in, arrList);
                     break;
                 case "S":
-                    needsToBeSaved = true;
+                    saveCurrentFile(arrList, fileName);
                     break;
                 case "V":
                     displayList(arrList);
@@ -76,7 +76,7 @@ public class ListFileMaker {
                 System.out.printf("    %d. %s\n", i + 1 , arrList.get(i));
             }
         }
-        return SafeInput.getRegExString(in, "Select a menu option:\n    A: Add\n    C: Clear\n    D: Delete\n    O: Open\n    S: Save\n    V: View\n    Q: Quit\n", "[AaCcDdOoVvQq]").toUpperCase();
+        return SafeInput.getRegExString(in, "Select a menu option:\n    A: Add\n    C: Clear\n    D: Delete\n    O: Open\n    S: Save\n    V: View\n    Q: Quit\n", "[AaCcDdOoSsVvQq]").toUpperCase();
     }
     
     public static void addToList(Scanner in, ArrayList arrList) {
@@ -86,7 +86,6 @@ public class ListFileMaker {
     
     public static void clearList(ArrayList arrList) {
         arrList.clear();
-        System.out.println("List cleared!");
     }
     
     public static void deleteFromList(Scanner in, ArrayList arrList) {
@@ -101,17 +100,26 @@ public class ListFileMaker {
         }
     }
     
-    private static String openListFile(ArrayList arrList) {
+    private static String openListFile(Scanner in, ArrayList arrList) {
+        if (!arrList.isEmpty()) {
+            String prompt = "Opening a new list will result in losing your current one. Are you sure";
+            boolean burnListYN = SafeInput.getYNConfirm(in, prompt);
+            if (!burnListYN) {
+                return "";
+            } else {
+                clearList(arrList);
+            }
+        }
         Scanner inFile;
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
         chooser.setFileFilter(filter);
         String line;
-        
+
         Path target = new File(System.getProperty("user.dir")).toPath();
         target = target.resolve("src");
         chooser.setCurrentDirectory(target.toFile());
-        
+
         try {
             if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                 target = chooser.getSelectedFile().toPath();
