@@ -45,10 +45,11 @@ public class ListFileMaker {
                     needsToBeSaved = true;
                     break;
                 case "O":
-                    fileName = openListFile(in, arrList);
+                    fileName = openListFile(in, arrList, needsToBeSaved);
                     break;
                 case "S":
                     saveCurrentFile(arrList, fileName);
+                    needsToBeSaved = false;
                     break;
                 case "V":
                     displayList(arrList);
@@ -100,22 +101,21 @@ public class ListFileMaker {
         }
     }
     
-    private static String openListFile(Scanner in, ArrayList arrList) {
-        if (!arrList.isEmpty()) {
+    private static String openListFile(Scanner in, ArrayList arrList, boolean needsToBeSaved) {
+        if (needsToBeSaved) {
             String prompt = "Opening a new list will result in losing your current one. Are you sure";
             boolean burnListYN = SafeInput.getYNConfirm(in, prompt);
             if (!burnListYN) {
                 return "";
-            } else {
-                clearList(arrList);
             }
         }
+        clearList(arrList);
         Scanner inFile;
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
         chooser.setFileFilter(filter);
         String line;
-
+                
         Path target = new File(System.getProperty("user.dir")).toPath();
         target = target.resolve("src");
         chooser.setCurrentDirectory(target.toFile());
