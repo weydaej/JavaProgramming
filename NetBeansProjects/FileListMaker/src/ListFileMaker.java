@@ -27,7 +27,7 @@ public class ListFileMaker {
         String ans = "";
         boolean run = true;
         boolean needsToBeSaved = false;
-        
+        String fileName = "";
         do {
             ans = printMenu(in, arrList);
             switch (ans) {
@@ -44,7 +44,7 @@ public class ListFileMaker {
                     needsToBeSaved = true;
                     break;
                 case "O":
-                    openListFile(arrList);
+                    fileName = openListFile(arrList);
                     break;
                 case "S":
                     saveCurrentFile(arrList); // why won't this work but it saves on exit
@@ -100,8 +100,7 @@ public class ListFileMaker {
         }
     }
     
-    private static void openListFile(ArrayList arrList) {
-        // add code for if a list is already open
+    private static String openListFile(ArrayList arrList) {
         Scanner inFile;
         JFileChooser chooser = new JFileChooser();
         String line;
@@ -126,6 +125,7 @@ public class ListFileMaker {
         } catch (IOException e) {
             System.out.println("IOException Error");
         }
+        return target.toString();
     }
     
     public static void saveCurrentFile(ArrayList arrList) {
