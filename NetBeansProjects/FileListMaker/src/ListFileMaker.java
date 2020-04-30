@@ -9,7 +9,6 @@
  * @author weydaej
  */
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
@@ -48,7 +47,7 @@ public class ListFileMaker {
                     openListFile(arrList);
                     break;
                 case "S":
-                    saveCurrentFile(arrList);
+                    saveCurrentFile(arrList); // why won't this work but it saves on exit
                     break;
                 case "V":
                     displayList(arrList);
@@ -86,11 +85,13 @@ public class ListFileMaker {
     
     public static void clearList(ArrayList arrList) {
         arrList.clear();
+        System.out.println("List cleared!");
     }
     
     public static void deleteFromList(Scanner in, ArrayList arrList) {
         int itemToDelete = SafeInput.getRangedInt(in, "What item do you want to delete", 1, arrList.size());
         arrList.remove(itemToDelete - 1);
+        System.out.println(itemToDelete + " was successfully removed!");
     }
     
     public static void displayList(ArrayList arrList) {
@@ -138,6 +139,7 @@ public class ListFileMaker {
                 outFile.println(arrList.get(i));
             }
             outFile.close();
+            System.out.println("File saved!");
         } catch (IOException e) {
             System.out.println("IOException Error");
         }
