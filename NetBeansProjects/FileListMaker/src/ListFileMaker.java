@@ -15,6 +15,7 @@ import java.nio.file.Path;
 import java.util.Scanner;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class ListFileMaker {
 
@@ -55,7 +56,6 @@ public class ListFileMaker {
                 case "Q":
                     if (SafeInput.getYNConfirm(in, "Are you sure")) {
                         if (needsToBeSaved) {
-                            System.out.println("file name: " + fileName);
                             saveCurrentFile(arrList, fileName);
                         }
                         run = false;
@@ -104,6 +104,8 @@ public class ListFileMaker {
     private static String openListFile(ArrayList arrList) {
         Scanner inFile;
         JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+        chooser.setFileFilter(filter);
         String line;
         
         Path target = new File(System.getProperty("user.dir")).toPath();
@@ -144,7 +146,7 @@ public class ListFileMaker {
                 outFile.println(arrList.get(i));
             }
             outFile.close();
-            System.out.println("File saved!");
+            System.out.printf("File \"%s\" saved!\n", target.getFileName());
         } catch (IOException e) {
             System.out.println("IOException Error");
         }
