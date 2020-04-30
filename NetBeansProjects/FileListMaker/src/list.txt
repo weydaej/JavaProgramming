@@ -1,5 +1,1 @@
-is
-this
-working
-?
-yes
+is this clearing what was previously there

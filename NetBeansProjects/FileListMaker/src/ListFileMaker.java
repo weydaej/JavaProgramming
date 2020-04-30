@@ -47,7 +47,7 @@ public class ListFileMaker {
                     fileName = openListFile(arrList);
                     break;
                 case "S":
-                    saveCurrentFile(arrList); // why won't this work but it saves on exit
+                    needsToBeSaved = true;
                     break;
                 case "V":
                     displayList(arrList);
@@ -55,7 +55,8 @@ public class ListFileMaker {
                 case "Q":
                     if (SafeInput.getYNConfirm(in, "Are you sure")) {
                         if (needsToBeSaved) {
-                            saveCurrentFile(arrList);
+                            System.out.println("file name: " + fileName);
+                            saveCurrentFile(arrList, fileName);
                         }
                         run = false;
                     } else {
@@ -125,13 +126,17 @@ public class ListFileMaker {
         } catch (IOException e) {
             System.out.println("IOException Error");
         }
-        return target.toString();
+        return target.toFile().toString();
     }
     
-    public static void saveCurrentFile(ArrayList arrList) {
+    public static void saveCurrentFile(ArrayList arrList, String fileName) {
         PrintWriter outFile;
         Path target = new File(System.getProperty("user.dir")).toPath();
-        target = target.resolve("src\\list.txt");
+        if (fileName.equals("")) {
+            target = target.resolve("src\\list.txt");
+        } else {
+            target = target.resolve(fileName);
+        }
         
         try {
             outFile = new PrintWriter(target.toString());
